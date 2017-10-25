@@ -15,18 +15,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//前台模块
+Route::group(['middleware'=>'web'],function ($router)
+{
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Auth::routes();
+
+    Route::get('/home', 'HomeController@index')->name('home');
+});
 
 //后台模块
-Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router)
+Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],function ($router)
 {
     $router->get('login', 'LoginController@showLoginForm')->name('admin.login');
     $router->post('login', 'LoginController@login');
     $router->get('register', 'LoginController@showRegister')->name('admin.register');
     $router->post('register', 'LoginController@register');
-    $router->post('logout', 'LoginController@logout');
+    $router->post('logout', 'LoginController@logout')->name('admin.logout');
 
     $router->get('/', 'AdminController@index');
     $router->get('index', 'AdminController@index');

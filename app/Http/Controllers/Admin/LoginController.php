@@ -50,8 +50,25 @@ class LoginController extends Controller
     /**
      * 重写验证时使用的用户名字段
      */
-    //public function username()
-    //{
-    //return 'name';
-    //}
+    public function username()
+    {
+        return 'name';
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->forget($this->guard()->getName());
+
+        $request->session()->regenerate();
+
+        return redirect('/admin');
+    }
 }
