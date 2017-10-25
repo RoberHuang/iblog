@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     $router->post('register', 'LoginController@register');
     $router->post('logout', 'LoginController@logout')->name('admin.logout');
 
-    $router->get('/', 'AdminController@index');
-    $router->get('index', 'AdminController@index');
+    $router->any('/', 'IndexController@index');
+    $router->any('index', 'IndexController@index');
+    $router->any('info', 'IndexController@info');
 });

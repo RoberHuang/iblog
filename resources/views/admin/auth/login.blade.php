@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-default" style="background-color:#f5f8fa;">
+            <div class="panel panel-default">
                 <div class="panel-body text-center">
                         @ 2017 Powered by iris
                 </div>
