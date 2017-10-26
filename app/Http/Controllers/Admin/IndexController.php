@@ -23,6 +23,7 @@ class IndexController extends AdminController
 
     public function info()
     {
-        return view('admin.info');
+        $assignlocation = trans('index.info');
+        return view('admin.info', compact('assignlocation'));
     }
 }

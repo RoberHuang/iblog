@@ -13,9 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('admins/style/css/is-main.admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('admins/style/font/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('admins/style/css/is-layout.admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('admins/style/css/is-login.admin.css') }}">
 </head>
 <body>
     <div id="app">
@@ -26,6 +24,5 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('admins/style/js/is-main.admin.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('admins/org/layer/layer.js') }}"></script>
 </body>
 </html>
