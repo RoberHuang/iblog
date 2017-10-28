@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+$router->get('/bstp', function () {
+    return view('bstp');
+});
 
 //前台模块
 Route::group(['middleware'=>'web'],function ($router)
@@ -43,4 +46,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     $router->get('/', 'IndexController@index');
     $router->get('index', 'IndexController@index');
     $router->get('info', 'IndexController@info');
+    $router->get('password/change', 'IndexController@showChangeForm');
+    $router->post('password/change', 'IndexController@changePassword');
 });

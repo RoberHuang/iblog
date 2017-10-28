@@ -33,7 +33,7 @@
                     @if (auth()->guard('admin')->guest())
                         <li><a href="{{ route('admin.login') }}">Login</a></li>
                     @else
-                        <li><a href="{{url('admin/pass')}}" target="main">{{ trans('index.modify_pwd') }}</a></li>
+                        <li><a href="{{ url('admin/password/change') }}" target="main">{{ trans('index.modify_pwd') }}</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ auth()->guard('admin')->user()->name }} <span class="caret"></span>

@@ -4,65 +4,42 @@
 <!--面包屑导航 开始-->
 <div class="crumb_warp crumb-fixed-top">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">{{ trans('index.app_admin') }}</a> &raquo;{{ $assignlocation }}
+    <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">{{ trans('index.app_admin') }}</a> &raquo;{{ trans('index.info') }}
 </div>
 <!--面包屑导航 结束-->
 
-<div class="pd_40"></div>
+<div class="h_40"></div>
 
 <!--结果集标题与导航组件 开始-->
-<div class="result_wrap">
-    <div class="result_title">
-        <h3>快捷操作</h3>
-    </div>
-    <div class="result_content">
-        <div class="short_wrap">
-            <a href="#"><i class="fa fa-plus"></i>新增文章</a>
-            <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
-            <a href="#"><i class="fa fa-refresh"></i>更新排序</a>
-        </div>
+<div class="main_title">
+    <h5>快捷操作</h5>
+    <div class="row">
+        <ul class="col-sm-12">
+            <li class="col-sm-2"><a href="#"><i class="fa fa-plus"></i>新增文章</a></li>
+            <li class="col-sm-2"><a href="#"><i class="fa fa-recycle"></i>批量删除</a></li>
+            <li class="col-sm-2"><a href="#"><i class="fa fa-refresh"></i>更新排序</a></li>
+        </ul>
     </div>
 </div>
 <!--结果集标题与导航组件 结束-->
 
-
-<div class="result_wrap">
-    <div class="result_title">
-        <h3>系统基本信息</h3>
-    </div>
-    <div class="result_content">
-        <ul>
-            <li>
-                <label>操作系统</label><span>{{ PHP_OS }}</span>
-            </li>
-            <li>
-                <label>运行环境</label><span>{{ $_SERVER['SERVER_SOFTWARE'] }}</span>
-            </li>
-            <li>
-                <label>版本</label><span>v-1.0</span>
-            </li>
-            <li>
-                <label>上传附件限制</label><span><?php echo get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许上传附件"; ?></span>
-            </li>
-            <li>
-                <label>北京时间</label><span><?php echo date('Y年m月d日 H时i分s秒')?></span>
-            </li>
-            <li>
-                <label>服务器域名/IP</label><span>{{$_SERVER['SERVER_NAME']}} [ {{$_SERVER['SERVER_ADDR']}} ]</span>
-            </li>
-            <li>
-                <label>Host</label><span>{{$_SERVER['SERVER_ADDR']}}</span>
-            </li>
-        </ul>
+<div class="main_title">
+    <h5>系统基本信息</h5>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <tr><td>操作系统</td><td>{{ PHP_OS }}</td></tr>
+            <tr><td>运行环境</td><td>{{ $_SERVER['SERVER_SOFTWARE'] }}</td></tr>
+            <tr><td>版本</td><td>v-1.0</td></tr>
+            <tr><td>上传附件限制</td><td><?php echo get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许上传附件"; ?></td></tr>
+            <tr><td>北京时间</td><td><?php echo date('Y年m月d日 H时i分s秒')?></td></tr>
+            <tr><td>服务器域名/IP</td><td>{{$_SERVER['SERVER_NAME']}} [ {{$_SERVER['SERVER_ADDR']}} ]</td></tr>
+        </table>
     </div>
 </div>
 
-
-<div class="result_wrap">
-    <div class="result_title">
-        <h3>使用帮助</h3>
-    </div>
-    <div class="result_content">
+<div class="main_title">
+    <h5>使用帮助</h5>
+    <div class="help_content">
         <ul>
             <li>
                 <label>官方交流网站：</label><span><a href="#">http://bbs.iblog.cn</a></span>
@@ -73,5 +50,5 @@
         </ul>
     </div>
 </div>
-<!--结果集列表组件 结束-->
+
 @endsection
