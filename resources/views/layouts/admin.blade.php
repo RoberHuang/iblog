@@ -13,9 +13,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{ asset('admins/style/css/is-style.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-main.admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('admins/style/css/is-left.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/font/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-layout.admin.css') }}">
+
 </head>
 <body>
     <div id="app">

@@ -12,7 +12,7 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         //
-        factory('App\Http\Model\Admin\Admin', 3)->create([
+        factory('App\Http\Model\Admin\Admin', 1)->create([
             'password' => bcrypt('123456')
         ]);
     }

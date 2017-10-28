@@ -16,9 +16,16 @@ use Faker\Generator as Faker;
 $factory->define(App\Http\Model\Admin\Admin::class, function (Faker $faker) {
     static $password;
 
-    return [
+    /*return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
+        'password' => $password ?: $password = bcrypt('secret'),
+        'remember_token' => str_random(10),
+    ];*/
+
+    return [
+        'name' => 'admin',
+        'email' => '353304530@qq.com',  //邮箱唯一，注意把AdminTableSeeder.php中添加的数量改为1
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];

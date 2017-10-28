@@ -13,5 +13,18 @@ return [
     'modify_pwd' => 'Change Password',
     'logout' => 'Logout',
 
+    /*左侧导航*/
+    'cont_manage' => 'Content manage',
+    'add_types' => 'add category',
+    'type_list' => 'Category List',
+    'add_articles' => 'Add articles',
+    'article_list' => 'Article list',
+    'sys_set' => 'System set',
+    'links' => 'Links',
+    'my_nav' => 'Custom nav',
+    'site_set' => 'Site configuration',
+
+    /*面包屑导航*/
+    'info' => 'system message',
 
 ];
