@@ -14,10 +14,10 @@
 <div class="main_title">
     <h5>快捷操作</h5>
     <div class="row">
-        <ul class="col-sm-12">
-            <li class="col-sm-2"><a href="#"><i class="fa fa-plus"></i>新增文章</a></li>
-            <li class="col-sm-2"><a href="#"><i class="fa fa-recycle"></i>批量删除</a></li>
-            <li class="col-sm-2"><a href="#"><i class="fa fa-refresh"></i>更新排序</a></li>
+        <ul class="col-sm-12 navbar-nav">
+            <li class="left navbar-collapse"><a href="#"><i class="fa fa-plus"></i>新增文章</a></li>
+            <li class="left navbar-collapse"><a href="#"><i class="fa fa-recycle"></i>批量删除</a></li>
+            <li class="left navbar-collapse"><a href="#"><i class="fa fa-refresh"></i>更新排序</a></li>
         </ul>
     </div>
 </div>

@@ -43,9 +43,15 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     $router->post('password/reset', 'ResetPasswordController@reset');                                                   //重置密码
     $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('admin.password.reset');      //重置密码表单
 
+    $router->get('password/change', 'IndexController@showChangeForm');
+    $router->post('password/change', 'IndexController@changePassword');
+
     $router->get('/', 'IndexController@index');
     $router->get('index', 'IndexController@index');
     $router->get('info', 'IndexController@info');
-    $router->get('password/change', 'IndexController@showChangeForm');
-    $router->post('password/change', 'IndexController@changePassword');
+
+    $router->resource('category', 'CategoryController');
+
+
+
 });

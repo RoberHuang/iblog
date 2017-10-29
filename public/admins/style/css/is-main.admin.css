@@ -166,6 +166,7 @@ table.add_tab tr td span i{
 .search_tab td{
     padding:0 5px
 }
+/*
 
 table.list_tab{
     border-collapse:collapse;
@@ -219,6 +220,7 @@ table.list_tab tr td a{
 table.list_tab tr td input[type='text']{width:20px;text-align:center;display:inline}
 table.list_tab tr td input[type='text'].md{width:200px;text-align:left;display:inline}
 table.list_tab tr td input[type='text'].lg{width:580px;text-align:left;display:inline}.page_list{margin-top:15px}
+*/
 .page_list ul{overflow:hidden;border:1px solid #ddd;border-radius:3px;padding:0;margin:0;display:inline-block}
 .page_list ul li{float:left;border:none;height:30px;line-height:30px;border-right:1px solid #ddd}
 .page_list ul li a{padding:6px 12px;text-decoration:none}
