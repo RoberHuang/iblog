@@ -16,11 +16,11 @@ class Category extends Model
      *
      * @var array
      */
-    /*protected $fillable = [
+    protected $fillable = [
         'cate_name', 'cate_title', 'cate_keywords', 'cate_description', 'cate_frequency', 'cate_order', 'cate_pid',
-    ];*/
+    ];
 
-    protected $guarded = [];
+    //protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
