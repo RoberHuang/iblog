@@ -19,12 +19,15 @@
 
 <div class="h_20"></div>
 
-<div class="col-xs-12">
+<div class="main_content">
 <div class="row">
     <div class="col-sm-4 col-md-offset-2">
-        @if ($errors->has('success'))
+        @if ($errors->has('errormsg'))
             <div class="alert alert-success">
-                {{ $errors->first('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                {{ $errors->first('errormsg') }}
             </div>
         @endif
     </div>
@@ -35,9 +38,9 @@
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('password_o') ? ' has-error' : '' }}">
                 <label for="password_o" class="col-sm-2 control-label">{{ trans('validation.attributes.password_o') }}</label>
-                <div class="col-sm-4"><input id="password_o" type="password" class="form-control" name="password_o" required autofocus></div>
+                <div class="col-sm-4 col-lg-3"><input id="password_o" type="password" class="form-control" name="password_o" required autofocus></div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-6 col-lg-7">
                     @if ($errors->has('password_o'))
                         {{--<div class="alert alert-default alert-dismissable" style="margin-bottom:0;padding:6px 35px 6px 15px;">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -51,8 +54,8 @@
             </div>
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                 <label for="password" class="col-sm-2 control-label">{{ trans('validation.attributes.password') }}</label>
-                <div class="col-sm-4"><input id="password" type="password" class="form-control" name="password" required autofocus></div>
-                <div class="col-sm-6">
+                <div class="col-sm-4 col-lg-3"><input id="password" type="password" class="form-control" name="password" required autofocus></div>
+                <div class="col-sm-6 col-lg-7">
                     @if ($errors->has('password'))
                         <p class="help-block">{{ $errors->first('password') }}</p>
                     @endif
@@ -60,8 +63,8 @@
             </div>
             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                 <label for="password_confirmation" class="col-sm-2 control-label">{{ trans('validation.attributes.password_o') }}</label>
-                <div class="col-sm-4"><input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autofocus></div>
-                <div class="col-sm-6">
+                <div class="col-sm-4 col-lg-3"><input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autofocus></div>
+                <div class="col-sm-6 col-lg-7">
                 @if ($errors->has('password_confirmation'))
                     <span class="help-block">{{ $errors->first('password_confirmation') }}</span>
                 @endif

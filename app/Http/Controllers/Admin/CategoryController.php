@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Admin\Category;
 use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Input;
 use resources\org\Tree;
 
 class CategoryController extends AdminController
@@ -13,24 +14,39 @@ class CategoryController extends AdminController
         $category = Category::all();
 
         $code = new Tree();
-        $data = $code->createTree($category, 'cate_id', 'cate_pid', 'cate_name');
+        $data = $code->createTree($category, 'id', 'cate_pid', 'cate_name');
 
         return view('admin.category.index')->with('data', $data);
     }
 
     public function create(){
-        return view('admin.category.add');
+        $data = Category::where('cate_pid', 0)->get();
+        return view('admin.category.add', compact('data'));
     }
 
-    public function store(){
+    public function store(Request $request){
+        //dd(Input::all());
+        //$input = Input::except('_token');
+        //dd($request->all());
+        //dd($request->input());
 
+        $this->validate($request, [
+            'cate_name' => 'required|unique:category',
+        ]);
+
+        $res = Category::create($request->all());
+        if ($res){
+            return redirect('admin/category');
+        }else{
+            return back()->withErrors(['errormsg'=> '添加失败']);
+        }
     }
 
     public function destroy(Request $request){
 
     }
 
-    public function edit(Request $request){
+    public function edit(){
         return view('admin.category.edit');
     }
 
@@ -40,6 +56,34 @@ class CategoryController extends AdminController
 
     public function show(Request $request){
 
+    }
+
+    public function setOrder(Request $request){
+        $cate = Category::find($request->input('id'));
+
+        if (is_null($cate)){
+            $data = [
+                'status' => '1',
+                'msg' => '数据异常',
+            ];
+        }else{
+            $cate->cate_order = $request->input('cate_order');
+            $re = $cate->update();
+
+            if ($re){
+                $data = [
+                    'status' => '0',
+                    'msg' => '操作成功',
+                ];
+            }else{
+                $data = [
+                    'status' => '1',
+                    'msg' => '操作失败',
+                ];
+            }
+        }
+
+        return $data;
     }
 
     /*protected function getTree($data, $pid=0){

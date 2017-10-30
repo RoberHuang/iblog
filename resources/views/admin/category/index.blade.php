@@ -45,13 +45,13 @@
         <!--快捷导航 结束-->
     </div>
 
-    <div class="main_title">
+    <div class="main_content">
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>排序</th>
-                        <th>ID</th>
+                        <th class="text-center" width="4%">排序</th>
+                        <th class="text-center" width="3%">ID</th>
                         <th>分类名称</th>
                         <th>标题</th>
                         <th>查看次数</th>
@@ -62,10 +62,10 @@
                 @if(count($data)>0)
                     @foreach($data as $v)
                     <tr>
-                        <td class="tc">
-                            <input type="text" onchange="changeOrder(this,{{$v->id}})" value="{{$v->cate_order}}">
+                        <td class="text-center">
+                            <input type="text" onchange="changeOrder(this,{{$v->id}})" value="{{$v->cate_order}}" style="width:30px;text-align:center">
                         </td>
-                        <td class="tc">{{$v->id}}</td>
+                        <td class="text-center">{{$v->id}}</td>
                         <td>
                             <a href="#">{{$v->_cate_name}}</a>
                         </td>
@@ -91,7 +91,7 @@
 <script>
     function changeOrder(obj,cate_id){
         var cate_order = $(obj).val();
-        $.post("{{url('admin/cate/changeorder')}}",{'_token':'{{csrf_token()}}','cate_id':cate_id,'cate_order':cate_order},function(data){
+        $.post("{{url('admin/cate/setOrder')}}",{'_token':'{{csrf_token()}}','id':cate_id,'cate_order':cate_order},function(data){
             if(data.status == 0){
                 layer.msg(data.msg, {icon: 6});
             }else{
