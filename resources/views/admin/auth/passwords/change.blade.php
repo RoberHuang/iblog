@@ -21,7 +21,7 @@
 
 <div class="main_content">
 <div class="row">
-    <div class="col-sm-4 col-sm-offset-2">
+    <div class="col-sm-4 col-lg-3 col-sm-offset-2">
         @if ($errors->has('errormsg'))
             <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">

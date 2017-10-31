@@ -12,7 +12,7 @@
 <!--结果集标题与导航组件 开始-->
 <div class="main_title">
     <h3>编辑分类</h3>
-        @if(count($errors)>0)
+        {{--@if(count($errors)>0)
             <div class="mark">
                 @if(is_object($errors))
                     @foreach($errors->all() as $error)
@@ -22,7 +22,7 @@
                     <p>{{$errors}}</p>
                 @endif
             </div>
-        @endif
+        @endif--}}
     <ul class="row">
         <ul class="col-sm-12 navbar-nav">
             <li class="left navbar-collapse"><a href="{{url('admin/category/create')}}"><i class="fa fa-plus"></i>添加分类</a></li>
@@ -33,6 +33,19 @@
 <!--结果集标题与导航组件 结束-->
 
 <div class="main_content">
+    <div class="row">
+        <div class="col-sm-4 col-lg-3 col-sm-offset-2">
+            @if ($errors->has('errormsg'))
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        &times;
+                    </button>
+                    {{ $errors->first('errormsg') }}
+                </div>
+            @endif
+        </div>
+    </div>
+
     <form class="form-horizontal" role="form" method="POST" action="{{url('admin/category/'.$result->id)}}">
         <input type="hidden" name="_method" value="put">
         {{csrf_field()}}

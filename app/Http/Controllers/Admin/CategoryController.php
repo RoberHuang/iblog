@@ -42,8 +42,23 @@ class CategoryController extends AdminController
         }
     }
 
-    public function destroy(Request $request){
+    public function destroy(Request $request, $id){
+        $cate = Category::find($id);
+        $res = $cate->delete();
+        if ($res){
+            Category::where('cate_pid', $id)->update(['cate_pid'=>$cate->cate_pid]);
+            $data = [
+                'status' => '0',
+                'msg' => '操作成功',
+            ];
+        }else{
+            $data = [
+                'status' => '1',
+                'msg' => '操作失败',
+            ];
+        }
 
+        return $data;
     }
 
     public function edit($id){
@@ -98,15 +113,4 @@ class CategoryController extends AdminController
         return $data;
     }
 
-    /*protected function getTree($data, $pid=0){
-        static $array = array();
-        foreach ($data as $key=>$value){
-            if ($value->cate_pid==$pid){
-                $array[] = $data[$key];
-                unset($data[$key]);
-                $this->getTree($data, $value->cate_id);
-            }
-        }
-        return $array;
-    }*/
 }

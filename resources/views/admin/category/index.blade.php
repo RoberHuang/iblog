@@ -100,26 +100,24 @@
         });
     }
 
-    //删除分类
     function delCate(cate_id) {
         layer.confirm('您确定要删除这个分类吗？', {
             btn: ['确定','取消'] //按钮
         }, function(){
-            $.post("{{url('admin/category/')}}/"+cate_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
+            $.post("{{url('admin/category')}}/"+cate_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
                 if(data.status==0){
-                    location.href = location.href;
                     layer.msg(data.msg, {icon: 6});
+                    window.setTimeout(function () {
+                        location.href = location.href;
+                    },3000);
                 }else{
                     layer.msg(data.msg, {icon: 5});
                 }
             });
-//            layer.msg('的确很重要', {icon: 1});
         }, function(){
 
         });
     }
-
-
 
 </script>
 
