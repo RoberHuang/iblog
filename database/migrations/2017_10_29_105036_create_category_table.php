@@ -16,9 +16,9 @@ class CreateCategoryTable extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->engine = 'MyISAM';
             $table->increments('id');
-            $table->string('cate_name', 200)->unique();
-            $table->string('cate_title')->nullable();
-            $table->string('cate_keywords')->nullable();
+            $table->string('cate_name', 128)->unique();
+            $table->string('cate_title', 128)->nullable();
+            $table->string('cate_keywords', 128)->nullable();
             $table->string('cate_description')->nullable();
             $table->unsignedInteger('cate_frequency')->default(0);
             $table->unsignedTinyInteger('cate_order')->default(0);

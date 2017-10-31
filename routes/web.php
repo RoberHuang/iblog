@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     $router->post('cate/setOrder', 'CategoryController@setOrder');
     $router->resource('category', 'CategoryController');
 
+    $router->resource('article', 'ArticleController');
 
 
 });
