@@ -23,4 +23,11 @@ class ArticleController extends AdminController
 
         return view('admin.article.add', compact('data'));
     }
+
+    public function store(Request $request){
+        $this->validate($request, [
+            'article_content' => 'required',
+        ]);
+        dd($request->input());
+    }
 }

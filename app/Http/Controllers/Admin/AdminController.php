@@ -98,10 +98,12 @@ class AdminController extends Controller
                 return 'Invalid file type.';
             }
             $newName = md5(date('YmdHis').mt_rand(100,999)).".".$extension;
-            $path = $file->move(base_path().'/uploads',$newName); //app_path().'storage/uploads'==>app的storage/uploads的目录下
-            $file_path = 'uploads/'.$newName;
+            $path = $file->move(public_path().'/uploads',$newName); //app_path().'storage/uploads'==>app的storage/uploads的目录下
 
-            return $file_path;
+            return $output = [
+                'status' => 0,
+                'result' => 'uploads/'.$newName
+            ];
         }*/
     }
 }

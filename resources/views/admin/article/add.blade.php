@@ -4,9 +4,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('admins/org/uploadify/uploadify.css')}}">
     <style>
         /*缩略图*/
-        .uploadify{display:inline-block;}
+        .uploadify{display:inline-block;margin-bottom:0;}
         .uploadify-button{border:none; border-radius:5px;}
         span.uploadify-button-text{color: #FFF; margin:0;}
+        .uploadify-queue{padding-left:15px;margin-bottom:5px;}
 
         /*编辑器*/
         .edui-default{line-height: 28px;}
@@ -37,20 +38,7 @@
     <!--结果集标题与导航组件 结束-->
 
     <div class="main_content">
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-2">
-                @if ($errors->has('errormsg'))
-                    <div class="alert alert-danger alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                            &times;
-                        </button>
-                        {{$errors->first('errormsg')}}
-                    </div>
-                @endif
-            </div>
-        </div>
-
-        <form role="form" method="POST" action="{{url('admin/article')}}">
+        <form id="form" role="form" method="POST" action="{{url('admin/article')}}">
             {{csrf_field()}}
             <div class="row">
                 <div class="col-sm-offset-1 col-sm-4">
@@ -91,7 +79,8 @@
                                 <?php $timestamp = time();?>
                                 $(function() {
                                     $('#file_upload').uploadify({
-                                        'buttonText' : '图片上传',
+                                        'width' : 50,
+                                        'buttonText' : '上传',
                                         'formData'     : {
                                             'timestamp' : '<?php echo $timestamp;?>',
                                             '_token'     : "{{csrf_token()}}"
@@ -103,6 +92,7 @@
                                             if (obj.status == 0){
                                                 $('input[name="article_thumb"]').val(obj.result);
                                                 $('#art_thumb_img').attr('src', '/' + obj.result);
+                                                $('#art_thumb_div').css('display', 'block');
                                             }else{
                                                 layer.msg(obj.result, {icon: 5});
                                             }
@@ -111,7 +101,7 @@
                                 });
                             </script>
                         </div>
-                        <div class="row">
+                        <div id="art_thumb_div" class="row" style="display:none;">
                             <div class="col-xs-9">
                                 <img src="" alt="" id="art_thumb_img" style="max-width: 350px; max-height:100px;">
                             </div>
@@ -155,14 +145,41 @@
             </div>
             <div class="h_40"></div>
             <div class="row">
-                <div class="col-sm-offset-2 col-sm-10">
+                <div class="col-sm-offset-2 col-sm-2">
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">提交</button>
                         <button type="button" class="btn btn-sm btn-default" onclick="history.go(-1)">返回</button>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    @if (count($errors)>0)
+                        <div class="has-error">
+                            @if(is_object($errors))
+                                <p class="help-block">{{$errors->first()}}</p>
+                            @else
+                                <p class="help-block">{{$errors}}</p>
+                            @endif
+                        </div>
+                    @endif
+                </div>
             </div>
         </form>
     </div>
-
+<script type="text/javascript">
+    /*    $(function(){
+        $('#submit').click(function () {
+            $.ajax({
+                url: "",
+                data: $('#form').serialize(),
+                type: "POST",
+                dataType:'json',
+                success: function (data) {
+                    alert(1);
+                },
+                error:function(er){
+                    BackErr(er);}
+            });
+        });
+    });*/
+</script>
 @endsection
