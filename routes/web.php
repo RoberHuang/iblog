@@ -55,5 +55,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
 
     $router->resource('article', 'ArticleController');
 
+    $router->any('uploadify', 'AdminController@uploadify');
 
 });

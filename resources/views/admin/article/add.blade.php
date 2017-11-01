@@ -1,11 +1,12 @@
 @extends('layouts.admin')
 @section('content')
+
     <link rel="stylesheet" type="text/css" href="{{asset('admins/org/uploadify/uploadify.css')}}">
     <style>
         /*缩略图*/
         .uploadify{display:inline-block;}
-        .uploadify-button{border:none; border-radius:5px; margin-top:8px;}
-        table.add_tab tr td span.uploadify-button-text{color: #FFF; margin:0;}
+        .uploadify-button{border:none; border-radius:5px;}
+        span.uploadify-button-text{color: #FFF; margin:0;}
 
         /*编辑器*/
         .edui-default{line-height: 28px;}
@@ -13,6 +14,7 @@
         {overflow: hidden; height:20px;}
         div.edui-box{overflow: hidden; height:22px;}
     </style>
+
     <!--面包屑导航 开始-->
     <div class="crumb_warp crumb-fixed-top">
         <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
@@ -83,8 +85,35 @@
                             <div class="col-xs-9">
                                 <input id="article_thumb" type="text" class="form-control" name="article_thumb">
                             </div>
-                            <div class="col-xs-3">
-                                <input id="file_upload" name="file_upload" type="file" multiple="true">
+                            <input id="file_upload" name="file_upload" type="file" multiple="true">
+                            <script src="{{asset('admins/org/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
+                            <script type="text/javascript">
+                                <?php $timestamp = time();?>
+                                $(function() {
+                                    $('#file_upload').uploadify({
+                                        'buttonText' : '图片上传',
+                                        'formData'     : {
+                                            'timestamp' : '<?php echo $timestamp;?>',
+                                            '_token'     : "{{csrf_token()}}"
+                                        },
+                                        'swf'      : "{{asset('admins/org/uploadify/uploadify.swf')}}",
+                                        'uploader' : "{{url('admin/uploadify')}}",
+                                        'onUploadSuccess' : function(file, data, response) {
+                                            var obj=eval("("+data+")");
+                                            if (obj.status == 0){
+                                                $('input[name="article_thumb"]').val(obj.result);
+                                                $('#art_thumb_img').attr('src', '/' + obj.result);
+                                            }else{
+                                                layer.msg(obj.result, {icon: 5});
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <img src="" alt="" id="art_thumb_img" style="max-width: 350px; max-height:100px;">
                             </div>
                         </div>
                         @if ($errors->has('article_thumb'))
@@ -120,7 +149,7 @@
                     <script type="text/javascript" charset="utf-8" src="{{asset('admins/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
                     <script id="editor" name="article_content" type="text/plain" style="width:860px;height:500px;"></script>
                     <script type="text/javascript">
-                    var ue = UE.getEditor('editor');
+                        var ue = UE.getEditor('editor');
                     </script>
                 </div>
             </div>
@@ -134,30 +163,6 @@
                 </div>
             </div>
         </form>
-
     </div>
-    {{--缩略图--}}
-    <script src="{{asset('admins/org/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
-    <script type="text/javascript">
-        <?php $timestamp = time();?>
-        $(function() {
-            $('#file_upload').uploadify({
-                'buttonText' : '图片上传',
-                'formData'     : {
-                    'timestamp' : '<?php echo $timestamp;?>',
-                    '_token'     : "{{csrf_token()}}"
-                },
-                'swf'      : "{{asset('admins/org/uploadify/uploadify.swf')}}",
-                'uploader' : "{{url('admin/upload')}}",
-                'onUploadSuccess' : function(file, data, response) {
-                    $('input[name=art_thumb]').val(data);
-                    $('#art_thumb_img').attr('src','/'+data);
-//                                    alert(data);
-                }
-            });
-        });
-    </script>
-
-    {{--编辑器--}}
 
 @endsection

@@ -11,13 +11,18 @@
     <title>{{ config('app.name', 'Laravel') }} - Admin</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-style.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-main.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-left.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/font/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-layout.admin.css') }}">
+
+    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
 
 </head>
 <body>
@@ -26,8 +31,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-
     <script type="text/javascript" src="{{ asset('admins/style/js/is-main.admin.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admins/org/layer/layer.js') }}"></script>
 </body>
