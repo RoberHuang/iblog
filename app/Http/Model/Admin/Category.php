@@ -28,4 +28,9 @@ class Category extends Model
      * @var array
      */
     //protected $hidden = [];
+
+    public function articles()
+    {
+        return $this->hasMany('App\Http\Model\Admin\Article');
+    }
 }

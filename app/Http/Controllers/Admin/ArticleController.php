@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Admin\Article;
 use App\Http\Model\Admin\Category;
 use Illuminate\Http\Request;
 use resources\org\Tree;
@@ -25,9 +26,21 @@ class ArticleController extends AdminController
     }
 
     public function store(Request $request){
+        //return back()->withErrors(['cate_type'=>'分类不能为空']);
+        //return back()->withErrors(['article_thumb'=>'图片错误']);
         $this->validate($request, [
+            'cate_id' => 'required',
+            'article_title' => 'required',
             'article_content' => 'required',
         ]);
-        dd($request->input());
+
+        //Article::create(array_merge(['user_id'=>\Auth::user()->id],$request->all()));
+
+        $res = Article::create($request->all());
+        if ($res){
+            return redirect('admin/article');
+        }else{
+            return back()->withErrors(['errormsg'=> '添加失败']);
+        }
     }
 }
