@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->string('article_thumb')->nullable();
             $table->text('article_content');
             $table->string('article_author', 64)->nullable();
-            $table->unsignedInteger('cate_frequency')->default(0);
+            $table->unsignedInteger('article_frequency')->default(0);
             $table->timestamp('publish_at');
             $table->timestamps();
         });

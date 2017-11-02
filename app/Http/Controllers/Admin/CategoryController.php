@@ -11,6 +11,7 @@ class CategoryController extends AdminController
 {
     //
     public function index(){
+        //dd(Category::find(1)->articles()->get());
         $category = Category::orderBy('cate_order', 'asc')->get();
 
         $code = new Tree();

@@ -14,7 +14,7 @@
     <h5>添加分类</h5>
     <!--快捷导航 开始-->
     <div class="row">
-        <ul class="col-sm-12 navbar-nav">
+        <ul class="col-sm-12">
             <li class="left navbar-collapse"><a href="{{url('admin/category/create')}}"><i class="fa fa-plus"></i>添加分类</a></li>
             <li class="left navbar-collapse"><a href="{{url('admin/category')}}"><i class="fa fa-recycle"></i>全部分类</a></li>
         </ul>

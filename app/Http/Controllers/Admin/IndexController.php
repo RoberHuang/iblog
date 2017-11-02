@@ -37,7 +37,7 @@ class IndexController extends AdminController
         //dd($request->input());《==》dd(Input::all());
 
         //校验方式1
-        $message = [
+        /*$message = [
             'password_o.required' => '请输入原密码',
             'password.required' => '请输入密码',
             'password.between' => '新密码必须在6-20位之间',
@@ -48,7 +48,7 @@ class IndexController extends AdminController
         ], $message);
         if (!$res->passes()){
             return back()->withErrors($res);
-        }
+        }*/
 
         //校验方式2
         $this->validate($request, [

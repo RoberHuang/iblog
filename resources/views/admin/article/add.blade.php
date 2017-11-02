@@ -29,7 +29,7 @@
     <div class="main_title">
         <h5>添加文章</h5>
         <div class="row">
-            <ul class="col-sm-12 navbar-nav">
+            <ul class="col-sm-12">
                 <li class="left navbar-collapse"><a href="{{url('admin/article/create')}}"><i class="fa fa-plus"></i>添加文章</a></li>
                 <li class="left navbar-collapse"><a href="{{url('admin/article')}}"><i class="fa fa-recycle"></i>全部文章</a></li>
             </ul>
@@ -38,7 +38,7 @@
     <!--结果集标题与导航组件 结束-->
 
     <div class="main_content">
-        <form id="form" role="form" method="POST" action="{{url('admin/article')}}">
+        <form id="form" role="form" method="POST" action="{{url('admin/article')}}" onsubmit="return false">
             {{csrf_field()}}
             <div class="row">
                 <div class="col-sm-offset-1 col-sm-3 col-md-2">
@@ -154,39 +154,41 @@
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-2">
                     <div class="form-group">
-                        <button type="submit" class="btn btn-sm btn-primary">提交</button>&nbsp;&nbsp;&nbsp;
+                        <button id="submit" type="submit" class="btn btn-sm btn-primary">提交</button>&nbsp;&nbsp;&nbsp;
                         <button type="button" class="btn btn-sm btn-default" onclick="history.go(-1)">返回</button>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    @if (count($errors)>0)
-                        <div class="has-error">
-                            @if(is_object($errors))
-                                <p class="help-block">{{$errors->first()}}</p>
-                            @else
-                                <p class="help-block">{{$errors}}</p>
-                            @endif
-                        </div>
-                    @endif
+                    <div class="has-error">
+                        <label class="help-block error_tip"></label>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
     <script type="text/javascript">
-        /*    $(function(){
+        $(function(){
             $('#submit').click(function () {
                 $.ajax({
-                    url: "",
+                    url: "{{url('admin/article')}}",
                     data: $('#form').serialize(),
                     type: "POST",
                     dataType:'json',
                     success: function (data) {
-                        alert(1);
+                        if (data.status == 1){
+                            $('.error_tip').html(data.result);
+                        }else{
+                            layer.msg(data.result, {icon: 6});
+                            window.setTimeout(function(){
+                                document.location = "{{url('admin/article')}}";
+                            }, 500);
+                        }
                     },
                     error:function(er){
-                        BackErr(er);}
+                        layer.msg(er, {icon: 5});
+                    }
                 });
             });
-        });*/
+        });
     </script>
 @endsection

@@ -31,6 +31,6 @@ class Category extends Model
 
     public function articles()
     {
-        return $this->hasMany('App\Http\Model\Admin\Article');
+        return $this->hasMany('App\Http\Model\Admin\Article', 'cate_id');
     }
 }
