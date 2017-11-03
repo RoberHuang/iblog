@@ -30,6 +30,7 @@
                         <th>标题</th>
                         <th>点击</th>
                         <th>编辑</th>
+                        <th>文章分类</th>
                         <th>发布时间</th>
                         <th>操作</th>
                     </tr>
@@ -38,16 +39,17 @@
                 @if(count($data)>0)
                     @foreach($data as $v)
                     <tr>
-                        <td class="tc">{{$v->id}}</td>
+                        <td class="text-center">{{$v->id}}</td>
                         <td>
                             <a href="#">{{$v->article_title}}</a>
                         </td>
                         <td>{{$v->article_frequency}}</td>
                         <td>{{$v->article_author}}</td>
-                        <td>{{$v->publish_at}}</td>
+                        <td>{{$v->category->cate_name}}</td>
+                        <td>{{$v->published_at}}</td>
                         <td>
                             <a href="{{url('admin/article/'.$v->id.'/edit')}}">修改</a>
-                            <a href="javascript:;" onclick="delArt({{$v->id}})">删除</a>
+                            <a href="javascript:;" onclick="delArticle({{$v->id}})">删除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -56,29 +58,21 @@
                 @endif
                 </tbody>
             </table>
-
-            <div class="page_list">
-                {{--{{$data->links()}}--}}
-            </div>
+        </div>
+        <div class="">
+            {{$data->links()}}
         </div>
     </div>
 </form>
 <!--搜索结果页面 列表 结束-->
 
-<style>
-    .result_content ul li span {
-        font-size: 15px;
-        padding: 6px 12px;
-    }
-</style>
-
 <script>
     //删除分类
-    function delArt(art_id) {
+    function delArticle(article_id) {
         layer.confirm('您确定要删除这篇文章吗？', {
             btn: ['确定','取消'] //按钮
         }, function(){
-            $.post("{{url('admin/article/')}}/"+art_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
+            $.post("{{url('admin/article/')}}/"+article_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
                 if(data.status==0){
                     location.href = location.href;
                     layer.msg(data.msg, {icon: 6});
@@ -86,7 +80,6 @@
                     layer.msg(data.msg, {icon: 5});
                 }
             });
-//            layer.msg('的确很重要', {icon: 1});
         }, function(){
 
         });

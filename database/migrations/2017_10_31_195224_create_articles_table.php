@@ -24,7 +24,7 @@ class CreateArticlesTable extends Migration
             $table->text('article_content');
             $table->string('article_author', 64)->nullable();
             $table->unsignedInteger('article_frequency')->default(0);
-            $table->timestamp('publish_at');
+            $table->timestamp('published_at');
             $table->timestamps();
         });
     }

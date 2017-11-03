@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-
     <link rel="stylesheet" type="text/css" href="{{asset('admins/org/uploadify/uploadify.css')}}">
     <style>
         /*缩略图*/
@@ -74,11 +73,11 @@
                         <script type="text/javascript" charset="utf-8" src="{{asset('admins/org/ueditor/ueditor.all.min.js')}}"> </script>
                         <script type="text/javascript" charset="utf-8" src="{{asset('admins/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
                         <script id="editor" name="article_content" type="text/plain" style="width:860px;height:500px;"></script>
-                        <script type="text/javascript">
-                            var ue = UE.getEditor('editor',{
-                                topOffset:40,
-                            });
-                        </script>
+                            <script type="text/javascript">
+                                var ue = UE.getEditor('editor',{
+                                    topOffset:40,
+                                });
+                            </script>
                     </div>
                 </div>
             </div>
@@ -175,13 +174,13 @@
                     type: "POST",
                     dataType:'json',
                     success: function (data) {
-                        if (data.status == 1){
-                            $('.error_tip').html(data.result);
-                        }else{
+                        if (data.status == 0){
                             layer.msg(data.result, {icon: 6});
                             window.setTimeout(function(){
                                 document.location = "{{url('admin/article')}}";
                             }, 500);
+                        }else{
+                            $('.error_tip').html(data.result);
                         }
                     },
                     error:function(er){
