@@ -123,4 +123,23 @@ class ArticleController extends AdminController
             ];
         }
     }
+
+    public function destroy(Request $request, $id){
+        $article = Article::find($id);
+        if ($article->delete()){
+            if (file_exists($article->article_thumb)){
+                unlink($article->article_thumb);
+            }
+            $data = [
+                'status' => 0,
+                'result' => '删除成功'
+            ];
+        }else{
+            $data = [
+                'status' => 1,
+                'result' => '删除失败'
+            ];
+        }
+        return $data;
+    }
 }

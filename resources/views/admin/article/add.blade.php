@@ -178,7 +178,7 @@
                             layer.msg(data.result, {icon: 6});
                             window.setTimeout(function(){
                                 document.location = "{{url('admin/article')}}";
-                            }, 500);
+                            }, 3000);
                         }else{
                             $('.error_tip').html(data.result);
                         }

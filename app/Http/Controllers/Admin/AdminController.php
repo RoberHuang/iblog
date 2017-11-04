@@ -14,7 +14,7 @@ class AdminController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->middleware('auth.admin:admin');  //冒号后面的admin作为参数传给中间件的$guard变量
     }

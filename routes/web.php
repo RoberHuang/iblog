@@ -54,7 +54,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     $router->resource('category', 'CategoryController');
 
     $router->resource('article', 'ArticleController');
-
     $router->any('uploadify', 'AdminController@uploadify');
+
+    $router->post('link/setOrder', 'LinkController@setOrder');
+    $router->resource('link', 'LinkController');
 
 });

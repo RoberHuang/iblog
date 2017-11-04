@@ -45,7 +45,7 @@
                         </td>
                         <td>{{$v->article_frequency}}</td>
                         <td>{{$v->article_author}}</td>
-                        <td>{{$v->category->cate_name}}</td>
+                        <td>@if(isset($v->category->cate_name)){{$v->category->cate_name}}@else 未分类@endif</td>
                         <td>{{$v->published_at}}</td>
                         <td>
                             <a href="{{url('admin/article/'.$v->id.'/edit')}}">修改</a>
@@ -74,10 +74,12 @@
         }, function(){
             $.post("{{url('admin/article/')}}/"+article_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
                 if(data.status==0){
-                    location.href = location.href;
-                    layer.msg(data.msg, {icon: 6});
+                    layer.msg(data.result, {icon: 6});
+                    window.setTimeout(function(){
+                        location.href = location.href;
+                    },3000);
                 }else{
-                    layer.msg(data.msg, {icon: 5});
+                    layer.msg(data.result, {icon: 5});
                 }
             });
         }, function(){

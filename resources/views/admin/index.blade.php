@@ -73,7 +73,7 @@
             <li>
                 <h3><i class="fa fa-fw fa-cog"></i>{{ trans('index.sys_set') }}</h3>
                 <ul class="sub_menu" style="display: block;">
-                    <li><a href="{{url('admin/links')}}" target="main"><i class="fa fa-fw fa-cubes"></i>{{ trans('index.links') }}</a></li>
+                    <li><a href="{{url('admin/link')}}" target="main"><i class="fa fa-fw fa-cubes"></i>{{ trans('index.links') }}</a></li>
                     <li><a href="{{url('admin/navs')}}" target="main"><i class="fa fa-fw fa-navicon"></i>{{ trans('index.my_nav') }}</a></li>
                     <li><a href="{{url('admin/config')}}" target="main"><i class="fa fa-fw fa-cogs"></i>{{ trans('index.site_set') }}</a></li>
                 </ul>
