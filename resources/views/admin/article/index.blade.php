@@ -1,14 +1,7 @@
 @extends('layouts.admin')
 @section('content')
-    <!--面包屑导航 开始-->
-    <div class="crumb_warp crumb-fixed-top">
-        <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 文章管理
-    </div>
-    <!--面包屑导航 结束-->
-    <div class="h_40"></div>
-    <!--搜索结果页面 列表 开始-->
-    <form action="#" method="post">
+<!--搜索结果页面 列表 开始-->
+<form action="#" method="post">
     <div class="main_title">
         <!--快捷导航 开始-->
         <h5>文章列表</h5>

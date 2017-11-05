@@ -13,7 +13,7 @@ class LinkController extends AdminController
     public function index()
     {
         $data = Link::orderBy('link_order', 'asc')->get();
-        $path = ['module'=>'link', 'action'=> 'index'];
+        $path = ['module'=> 'link', 'action'=> 'index'];
         return view('admin.link.index', compact('data', 'path'));
     }
 
@@ -27,11 +27,14 @@ class LinkController extends AdminController
             'cate_id.required' => '请选择分类',
             'article_title.required' => '请输入标题',
             'article_content.required' => '内容不能为空',
+            'link_order.integer' => '必须是0到255之间的整数',
+            'link_order.between' => '必须是0到255之间的整数',
         ];
         $rule = [
             'link_name' => 'required',
             'link_url' => 'required',
             'link_title' => 'required',
+            'link_order' => 'integer|between:0,255',
         ];
 
         $res = Validator::make($request->input(), $rule, $message);
@@ -68,11 +71,14 @@ class LinkController extends AdminController
             'link_name.required' => '名称不能为空',
             'link_url.required' => '链接不能为空',
             'link_title.required' => '标题不能为空',
+            'link_order.integer' => '必须是0到255之间的整数',
+            'link_order.between' => '必须是0到255之间的整数',
         ];
         $rule = [
             'link_name' => 'required',
             'link_url' => 'required',
             'link_title' => 'required',
+            'link_order' => 'integer|between:0,255',
         ];
 
         $res = Validator::make($request->input(), $rule, $message);
@@ -127,11 +133,27 @@ class LinkController extends AdminController
     }
 
     public function setOrder(Request $request){
+        $message = [
+            'link_order.integer' => '必须是0到255之间的整数',
+            'link_order.between' => '必须是0到255之间的整数',
+        ];
+        $rule = [
+            'link_order' => 'integer|between:0,255',
+        ];
+
+        $res = Validator::make($request->input(), $rule, $message);
+        if (!$res->passes()){
+            return [
+                'status' => 1,
+                'result' => $res->errors()->first(),
+            ];
+        }
+
         $link = Link::find($request->input('id'));
         if (is_null($link)){
             return [
                 'status' => '1',
-                'msg' => '数据异常',
+                'result' => '数据异常',
             ];
         }else{
             $link->link_order = $request->input('link_order');
@@ -139,12 +161,12 @@ class LinkController extends AdminController
             if ($res){
                 return [
                     'status' => '0',
-                    'msg' => '操作成功',
+                    'result' => '操作成功',
                 ];
             }else{
                 return [
                     'status' => '1',
-                    'msg' => '操作失败',
+                    'result' => '操作失败',
                 ];
             }
         }

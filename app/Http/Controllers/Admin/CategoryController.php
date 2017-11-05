@@ -16,13 +16,16 @@ class CategoryController extends AdminController
 
         $code = new Tree();
         $data = $code->createTree($category, 'id', 'cate_pid', 'cate_name');
+        $path = ['module'=> 'category', 'action'=> 'index'];
 
-        return view('admin.category.index')->with('data', $data);
+        return view('admin.category.index', compact('data', 'path'));
     }
 
     public function create(){
         $data = Category::where('cate_pid', 0)->get();
-        return view('admin.category.add', compact('data'));
+        $path = ['module'=> 'category', 'action'=> 'add'];
+
+        return view('admin.category.add', compact('data', 'path'));
     }
 
     public function store(Request $request){
@@ -33,6 +36,7 @@ class CategoryController extends AdminController
 
         $this->validate($request, [
             'cate_name' => 'required|unique:category',
+            'cate_order' => 'integer|between:0,255',
         ]);
 
         $res = Category::create($request->all());
@@ -65,12 +69,15 @@ class CategoryController extends AdminController
     public function edit($id){
         $result = Category::findOrFail($id);
         $data = Category::where('cate_pid', 0)->get();
-        return view('admin.category.edit', compact('result','data'));
+        $path = ['module'=> 'category', 'action'=> 'edit'];
+
+        return view('admin.category.edit', compact('result','data', 'path'));
     }
 
     public function update(Request $request, $id){
         $this->validate($request, [
-            'cate_name' => 'required',
+            'cate_name' => 'required|unique:category,cate_name,'.$id,
+            'cate_order' => 'integer|between:0,255',
         ]);
         $input = Input::except('_token', '_method');
 

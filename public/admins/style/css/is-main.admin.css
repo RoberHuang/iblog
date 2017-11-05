@@ -1,29 +1,3 @@
-/*主体框*/
-.main_box{
-    position:fixed;
-    left:190px;
-    right:0;
-    top:50px;
-    bottom:35px;
-}
-
-/*底部框*/
-.bottom_box{
-    width:100%;
-    height:35px;
-    line-height:35px;
-    font-size:12px;
-    text-indent:200px;
-    background:#f2f2f2;
-    border-top:1px solid #ccc;
-    position:fixed;
-    left:0;
-    bottom:0
-}
-
-.bottom_box a{
-    color:#1963aa
-}
 
 /*面包屑导航*/
 .crumb_warp{

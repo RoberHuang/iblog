@@ -26,11 +26,13 @@ class IndexController extends AdminController
 
     public function info()
     {
-        return view('admin.info');
+        $path = ['action'=> 'info'];
+        return view('admin.info', compact('path'));
     }
 
     public function showChangeForm(){
-        return view('admin.auth.passwords.change');
+        $path = ['action'=> 'change_password'];
+        return view('admin.auth.passwords.change', compact('path'));
     }
 
     public function changePassword(Request $request){

@@ -1,6 +1,23 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }} - Admin</title>
+
+    <!-- Styles -->
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('admins/style/css/is-layout.admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('admins/style/font/css/font-awesome.min.css') }}">
+</head>
+<body>
+<div id="app">
     <!--顶部导航 开始-->
     <nav class="navbar navbar-default navbar-static-top">
         <div class="col-sm-12">
@@ -74,7 +91,7 @@
                 <h3><i class="fa fa-fw fa-cog"></i>{{ trans('index.sys_set') }}</h3>
                 <ul class="sub_menu" style="display: block;">
                     <li><a href="{{url('admin/link')}}" target="main"><i class="fa fa-fw fa-cubes"></i>{{ trans('index.links') }}</a></li>
-                    <li><a href="{{url('admin/navs')}}" target="main"><i class="fa fa-fw fa-navicon"></i>{{ trans('index.my_nav') }}</a></li>
+                    <li><a href="{{url('admin/nav')}}" target="main"><i class="fa fa-fw fa-navicon"></i>{{ trans('index.my_nav') }}</a></li>
                     <li><a href="{{url('admin/config')}}" target="main"><i class="fa fa-fw fa-cogs"></i>{{ trans('index.site_set') }}</a></li>
                 </ul>
             </li>
@@ -117,4 +134,12 @@
         </div>
     </div>
 </div>--}}
-@endsection
+</div>
+
+<!-- Scripts -->
+{{--<script src="{{ asset('js/app.js') }}"></script>--}}
+<script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admins/style/js/is-layout.admin.js') }}"></script>
+</body>
+</html>

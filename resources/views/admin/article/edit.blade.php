@@ -15,15 +15,6 @@
     div.edui-box{overflow: hidden; height:22px;}
 </style>
 
-<!--面包屑导航 开始-->
-<div class="crumb_warp crumb-fixed-top">
-    <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 文章管理
-</div>
-<!--面包屑导航 结束-->
-
-<div class="h_40"></div>
-
 <!--结果集标题与导航组件 开始-->
 <div class="main_title">
     <h5>编辑文章</h5>
@@ -74,12 +65,13 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-4">
-                <div class="form-group form-group-sm">
-                    <label for="article_thumb">{{ trans('article.article_thumb') }}</label>
+
+        <div class="form-group form-group-sm col-sm-offset-1">
+            <label for="article_thumb">{{ trans('article.article_thumb') }}</label>
+            <div class="row">
+                <div class="col-sm-6">
                     <div class="row">
-                        <div class="col-xs-10">
+                        <div class="col-xs-9">
                             <input id="article_thumb" type="text" class="form-control" name="article_thumb" value="{{$result->article_thumb}}">
                         </div>
                         <input id="file_upload" name="file_upload" type="file" multiple="true">
@@ -118,9 +110,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-3">
-                <img src="/{{$result->article_thumb}}" alt="" id="art_thumb_img" style="max-width: 350px; max-height:100px;">
+                <div class="col-sm-6">
+                    <img src="/{{$result->article_thumb}}" alt="" id="art_thumb_img" style="margin-top:2px;max-width: 350px; max-height:100px;">
+                </div>
             </div>
         </div>
         <div class="row">

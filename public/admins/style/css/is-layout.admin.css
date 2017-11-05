@@ -1,4 +1,43 @@
+*{margin:0;padding:0;}
 
-.c{overflow:hidden; clear:both ; height:0px;padding:0px;margin:0px;text-align:none;font-size:0px;font-style:normal;}
-.h_20 {clear:both;height:20px;line-height:20px;overflow:hidden;zoom:1;}
-.h_40 {clear:both;height:40px;line-height:40px;overflow:hidden;zoom:1;}
+/*左侧导航*/
+.menu_box{position:fixed;top:50px;left:0;bottom:0;overflow:auto;overflow-x:hidden;width:189px;background:#f2f2f2;border-right:1px solid #ccc;z-index:10}
+.menu_box ul{font-size:14px;list-style:none;}
+.menu_box ul li{border:1px solid #e5e5e5;border-width:1px 0}
+.menu_box ul li h3{margin:0; font-size:14px;padding:0 16px 0 18px;display:block;height:38px;line-height:38px;color:#333;cursor:pointer}
+.menu_box ul li i{margin-right:5px;color:#666;font-size:14px}
+.menu_box ul li ul.sub_menu{border-top:1px solid #e5e5e5;background:#fff;display:none}
+.menu_box ul li ul.sub_menu li{padding-left:10px}
+.menu_box ul li ul.sub_menu li a{padding:0 16px 0 20px;display:block;height:38px;line-height:38px;color:#333;text-decoration:none}
+.menu_box ul li ul.sub_menu li a:hover{color:#1963aa}
+.menu_box ul li ul.sub_menu li a:hover i{color:#1963aa}
+.menu_box ul li ul.sub_menu li.on{color:#1963aa}
+.menu_box ul li ul.sub_menu li.on a{color:#1963aa}
+.menu_box ul li ul.sub_menu li.on a i{color:#1963aa}
+
+/*主体框*/
+.main_box{
+    position:fixed;
+    left:190px;
+    right:0;
+    top:50px;
+    bottom:35px;
+}
+
+/*底部框*/
+.bottom_box{
+    width:100%;
+    height:35px;
+    line-height:35px;
+    font-size:12px;
+    text-indent:200px;
+    background:#f2f2f2;
+    border-top:1px solid #ccc;
+    position:fixed;
+    left:0;
+    bottom:0
+}
+
+.bottom_box a{
+    color:#1963aa
+}

@@ -15,15 +15,6 @@
         div.edui-box{overflow: hidden; height:22px;}
     </style>
 
-    <!--面包屑导航 开始-->
-    <div class="crumb_warp crumb-fixed-top">
-        <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-        <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">首页</a> &raquo; 文章管理
-    </div>
-    <!--面包屑导航 结束-->
-
-    <div class="h_40"></div>
-
     <!--结果集标题与导航组件 开始-->
     <div class="main_title">
         <h5>添加文章</h5>
@@ -81,12 +72,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-4">
-                    <div class="form-group form-group-sm{{ $errors->has('article_thumb') ? ' has-error' : '' }}">
-                        <label for="article_thumb">{{ trans('article.article_thumb') }}<span class="article_thumb error">{{ $errors->has('article_thumb') ? $errors->first('article_thumb') : '' }}</span></label>
+
+            <div class="form-group form-group-sm col-sm-offset-1{{ $errors->has('article_thumb') ? ' has-error' : '' }}">
+                <label for="article_thumb" class="">{{ trans('article.article_thumb') }}<span class="article_thumb error">{{ $errors->has('article_thumb') ? $errors->first('article_thumb') : '' }}</span></label>
+                <div class="row">
+                    <div class="col-sm-6">
                         <div class="row">
-                            <div class="col-xs-10">
+                            <div class="col-xs-9">
                                 <input id="article_thumb" type="text" class="form-control" name="article_thumb">
                             </div>
                             <input id="file_upload" name="file_upload" type="file" multiple="true">
@@ -116,7 +108,7 @@
                                 });
                             </script>
                         </div>
-                        <div class="row" {{--style="display:none;"--}}>
+                        <div class="row">
                             <div class="col-sm-4">
                                 <div style="width:240px; border: solid 1px #999; background-color: #f0f0f0; font-size: 11px; padding: 10px;">
                                     <p>1、图片大小不能超过<b>2M</b></p>
@@ -125,11 +117,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <img src="" alt="" id="art_thumb_img" style="max-width: 350px; max-height:100px;">
+                    <div class="col-sm-6">
+                        <img src="" alt="" id="art_thumb_img" style="margin-top:2px;max-width: 350px; max-height:100px;">
+                    </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-sm-offset-1 col-sm-4">
                     <div class="form-group form-group-sm{{ $errors->has('article_author') ? ' has-error' : '' }}">

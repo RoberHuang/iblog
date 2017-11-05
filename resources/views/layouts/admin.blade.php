@@ -16,22 +16,28 @@
 
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-style.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-main.admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('admins/style/css/is-left.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/font/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('admins/style/css/is-layout.admin.css') }}">
-
-    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
     <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-
 </head>
 <body>
     <div id="app">
+        <!--面包屑导航 开始-->
+        <div class="crumb_warp crumb-fixed-top">
+            <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
+            <i class="fa fa-home"></i> <a href="{{url('admin/info')}}">{{ trans('admin/module.app_admin') }}</a> &raquo; @if(isset($path['module']))<a href="{{url('admin/'.$path['module'])}}">{{trans('admin/module.'.$path['module'])}}</a> &raquo; @endif{{trans('admin/module.'.$path['action'])}}
+        </div>
+        <!--面包屑导航 结束-->
+        <div class="h_40"></div>
         @yield('content')
     </div>
 
     <!-- Scripts -->
-    <script type="text/javascript" src="{{ asset('admins/style/js/is-main.admin.js') }}"></script>
+    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admins/org/layer/layer.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('admins/style/js/is-main.admin.js') }}"></script>
+    <script type="text/javascript">
+        var URL = "{{Request::path()}}";
+    </script>
 </body>
 </html>

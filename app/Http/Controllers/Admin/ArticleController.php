@@ -22,7 +22,9 @@ class ArticleController extends AdminController
         //dd(Article::with('category')->get()->toArray());  //同事获取当前和关联表数据，并转为数组
 
         $data = Article::with('category')->orderBy('id', 'desc')->paginate(3);
-        return view('admin.article.index', compact('data'));
+        $path = ['module'=> 'article', 'action'=> 'index'];
+
+        return view('admin.article.index', compact('data', 'path'));
     }
 
     public function create(){
@@ -30,8 +32,9 @@ class ArticleController extends AdminController
 
         $code = new Tree();
         $data = $code->createTree($category, 'id', 'cate_pid', 'cate_name');
+        $path = ['module'=> 'article', 'action'=> 'add'];
 
-        return view('admin.article.add', compact('data'));
+        return view('admin.article.add', compact('data', 'path'));
     }
 
     public function store(Request $request){
@@ -83,7 +86,9 @@ class ArticleController extends AdminController
         $category = Category::orderBy('cate_order', 'asc')->get();
         $code = new Tree();
         $data = $code->createTree($category, 'id', 'cate_pid', 'cate_name');
-        return view('admin.article.edit', compact('result','data'));
+        $path = ['module'=> 'article', 'action'=> 'edit'];
+
+        return view('admin.article.edit', compact('result','data', 'path'));
     }
 
     public function update(Request $request, $id){

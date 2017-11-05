@@ -60,3 +60,28 @@ p{
 .error {
     color: #a94442;
 }
+
+.c{
+    overflow:hidden;
+    clear:both ;
+    height:0px;
+    padding:0px;
+    margin:0px;
+    /*text-align:none;*/
+    font-size:0px;
+    font-style:normal;
+}
+.h_20 {
+    clear:both;
+    height:20px;
+    line-height:20px;
+    overflow:hidden;
+    zoom:1;
+}
+.h_40 {
+    clear:both;
+    height:40px;
+    line-height:40px;
+    overflow:hidden;
+    zoom:1;
+}

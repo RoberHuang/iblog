@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-@include('admin.public.crumb')
 
 <!--结果集标题与导航组件 开始-->
 <div class="main_title">
@@ -64,6 +63,9 @@
                     }else{
                         $('.error_tip').html(data.result);
                     }
+                },
+                error: function (er) {
+
                 }
             });
         });

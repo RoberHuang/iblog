@@ -59,4 +59,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     $router->post('link/setOrder', 'LinkController@setOrder');
     $router->resource('link', 'LinkController');
 
+    $router->resource('nav', 'NavController');
+
 });
