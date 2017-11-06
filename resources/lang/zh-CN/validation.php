@@ -147,6 +147,9 @@ return [
         'time'                  => '时间',
         'available'             => '可用的',
         'size'                  => '大小',
+
+        'cate_name'             => '分类名称',
+        'cate_order'            => '分类排序',
     ],
 
 ];

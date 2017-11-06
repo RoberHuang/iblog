@@ -39,6 +39,9 @@
     <script type="text/javascript">
         var URL = "{{Request::path()}}";
         var URL1 = "{{Request::getPathInfo()}}";
+        var CONFIRM_DEL = "{{trans('admin/common.confirm_del')}}";
+        var SURE = "{{trans('admin/common.sure')}}";
+        var CANCEL = "{{trans('admin/common.cancel')}}";
     </script>
 </body>
 </html>

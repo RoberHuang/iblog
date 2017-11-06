@@ -67,6 +67,11 @@ class LinkController extends AdminController
     }
 
     public function update(Request $request, $id){
+        $this->validate($request, [
+            'link_name' => 'required',
+            'link_url' => 'required',
+            'link_title' => 'required',
+        ]);
         $message = [
             'link_name.required' => '名称不能为空',
             'link_url.required' => '链接不能为空',

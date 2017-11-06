@@ -43,7 +43,7 @@ class CategoryController extends AdminController
         if ($res){
             return redirect('admin/category');
         }else{
-            return back()->withErrors(['errormsg'=> '添加失败']);
+            return back()->withErrors(['errormsg'=> trans('admin/common.add_fail')]);
         }
     }
 
@@ -52,19 +52,19 @@ class CategoryController extends AdminController
         if (is_null($result)){
             return [
                 'status' => '1',
-                'result' => '数据异常',
+                'result' => trans('admin/common.data_abnormal'),
             ];
         }
         if ($result->delete()){
             Category::where('cate_pid', $id)->update(['cate_pid'=>$result->cate_pid]);
             $data = [
                 'status' => '0',
-                'result' => '操作成功',
+                'result' => trans('admin/common.operation_success'),
             ];
         }else{
             $data = [
                 'status' => '1',
-                'result' => '操作失败',
+                'result' => trans('admin/common.operation_fail'),
             ];
         }
 
@@ -90,7 +90,7 @@ class CategoryController extends AdminController
         if ($res){
             return redirect('admin/category');
         }else{
-            return back()->withErrors(['errormsg'=> '添加失败']);
+            return back()->withErrors(['errormsg'=> trans('admin/common.edit_fail')]);
         }
     }
 
@@ -104,21 +104,21 @@ class CategoryController extends AdminController
         if (is_null($cate)){
             $data = [
                 'status' => '1',
-                'result' => '数据异常',
+                'result' => trans('admin/common.data_abnormal'),
             ];
         }else{
-            $cate->cate_order = $request->input('cate_order');
+            $cate->cate_order = $request->input('order');
             $re = $cate->update();
 
             if ($re){
                 $data = [
                     'status' => '0',
-                    'result' => '操作成功',
+                    'result' => trans('admin/common.operation_success'),
                 ];
             }else{
                 $data = [
                     'status' => '1',
-                    'result' => '操作失败',
+                    'result' => trans('admin/common.operation_fail'),
                 ];
             }
         }

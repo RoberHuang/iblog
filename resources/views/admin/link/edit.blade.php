@@ -65,7 +65,10 @@
                     }
                 },
                 error: function (er) {
-
+                    var json=JSON.parse(er.responseText);
+                    for (var i in json.errors){
+                        alert(json.errors[i]);
+                    }
                 }
             });
         });
