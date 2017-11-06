@@ -53,6 +53,7 @@
             </table>
         </div>
         <div class="">
+            {{--{{$data->render()}}--}}
             {{$data->links()}}
         </div>
     </div>

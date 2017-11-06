@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
-use resources\org\Tree;
+use App\extensions\Tree;
 
 class ArticleController extends AdminController
 {
@@ -104,7 +104,7 @@ class ArticleController extends AdminController
         ];
 
         $res = Validator::make($request->all(), $rule, $message);
-        if (!$res->passes()){
+        if (!$res->passes()){   //$res->fails()
             return [
                 'status' => 1,
                 'result' => $res->errors()->first()
@@ -130,10 +130,16 @@ class ArticleController extends AdminController
     }
 
     public function destroy(Request $request, $id){
-        $article = Article::find($id);
-        if ($article->delete()){
-            if (file_exists($article->article_thumb)){
-                unlink($article->article_thumb);
+        $result = Article::find($id);
+        if (is_null($result)){
+            return [
+                'status' => '1',
+                'result' => '数据异常',
+            ];
+        }
+        if ($result->delete()){
+            if (file_exists($result->article_thumb)){
+                unlink($result->article_thumb);
             }
             $data = [
                 'status' => 0,

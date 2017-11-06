@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Model\Admin\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use resources\org\Tree;
+use App\Extensions\Tree;
 
 class CategoryController extends AdminController
 {
@@ -48,18 +48,23 @@ class CategoryController extends AdminController
     }
 
     public function destroy(Request $request, $id){
-        $cate = Category::find($id);
-        $res = $cate->delete();
-        if ($res){
-            Category::where('cate_pid', $id)->update(['cate_pid'=>$cate->cate_pid]);
+        $result = Category::find($id);
+        if (is_null($result)){
+            return [
+                'status' => '1',
+                'result' => '数据异常',
+            ];
+        }
+        if ($result->delete()){
+            Category::where('cate_pid', $id)->update(['cate_pid'=>$result->cate_pid]);
             $data = [
                 'status' => '0',
-                'msg' => '操作成功',
+                'result' => '操作成功',
             ];
         }else{
             $data = [
                 'status' => '1',
-                'msg' => '操作失败',
+                'result' => '操作失败',
             ];
         }
 
@@ -99,7 +104,7 @@ class CategoryController extends AdminController
         if (is_null($cate)){
             $data = [
                 'status' => '1',
-                'msg' => '数据异常',
+                'result' => '数据异常',
             ];
         }else{
             $cate->cate_order = $request->input('cate_order');
@@ -108,12 +113,12 @@ class CategoryController extends AdminController
             if ($re){
                 $data = [
                     'status' => '0',
-                    'msg' => '操作成功',
+                    'result' => '操作成功',
                 ];
             }else{
                 $data = [
                     'status' => '1',
-                    'msg' => '操作失败',
+                    'result' => '操作失败',
                 ];
             }
         }

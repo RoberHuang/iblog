@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -105,5 +106,41 @@ class AdminController extends Controller
                 'result' => 'uploads/'.$newName
             ];
         }*/
+    }
+
+    //session测试
+    public function setsession(Request $request){
+        $request->session()->put('k1', null);
+        session()->put('k2', 'v2');
+        session(['k3'=> 'v3']);
+        Session::put('k4', 'v4');
+        Session::put(['k5'=> 'v5', 'k6'=> 'v6']);
+        //推送数据到值为数组的 Session
+        //Session::push(['k7'=> 'v7', 'k8'=> 'v8']);//错误写法
+        Session::push('k7', 'v7');
+        Session::push('k8', 'v8');
+        $request->session()->flash('k9', 'v9');
+    }
+    public function getsession(Request $request){
+        dd(session()->all());
+        echo $request->session()->get('k1');
+        echo session()->get('k2');
+        echo session('k3');
+        echo Session::get('k4');
+        echo Session::get('k5');
+        echo Session::get('k6');
+        echo Session::get('k7.0');
+        echo Session::get('k8.0');
+        Session::pull('k7');    //删除指定session
+        $request->session()->forget('k1');
+        //$request->session()->flush();   //删除所有session
+
+        if (Session::has('k1')){    //存在并且不为 null 的话返回 true
+            dd(Session::all());
+        }
+        if (Session::exists('k1')){ //存在，即使是 null 的话也无所谓
+            dd(Session::all());
+        }
+        echo $request->session()->get('k9');    //一次性，再次刷新不存在
     }
 }

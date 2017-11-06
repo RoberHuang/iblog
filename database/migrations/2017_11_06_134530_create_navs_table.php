@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLinksTables extends Migration
+class CreateNavsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateLinksTables extends Migration
      */
     public function up()
     {
-        Schema::create('links', function (Blueprint $table) {
+        Schema::create('navs', function (Blueprint $table) {
             $table->engine = 'MyISAM';
             $table->increments('id');
-            $table->string('link_name', 128);
-            $table->string('link_title')->nullable();
-            $table->string('link_url');
-            $table->unsignedTinyInteger('link_order')->default(0);
+            $table->string('nav_name', 128);
+            $table->string('nav_alias')->nullable();
+            $table->string('nav_url');
+            $table->unsignedTinyInteger('nav_order')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateLinksTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('links');
+        Schema::dropIfExists('navs');
     }
 }

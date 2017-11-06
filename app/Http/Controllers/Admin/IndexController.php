@@ -49,14 +49,14 @@ class IndexController extends AdminController
             'password' => 'required|between:6,20|confirmed',
         ], $message);
         if (!$res->passes()){
-            return back()->withErrors($res);
+            return back()->withErrors($res)->withInput();
         }*/
 
         //校验方式2
         $this->validate($request, [
             'password_o' => 'required',
             'password' => 'required|between:6,20|confirmed',
-        ]);
+        ])->withInput();
 
         //$admin = Admin::first();
         $admin = Admin::find(1);

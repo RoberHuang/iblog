@@ -56,7 +56,7 @@
                     @foreach($data as $v)
                     <tr>
                         <td class="text-center">
-                            <input type="text" onchange="changeOrder(this, {{$v->id}})" value="{{$v->link_order}}" style="width:30px;text-align:center">
+                            <input type="text" onchange="changeOrder(this, '{{$v->id}}')" value="{{$v->link_order}}" style="width:30px;text-align:center">
                         </td>
                         <td class="text-center">{{$v->id}}</td>
                         <td>

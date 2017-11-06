@@ -112,14 +112,14 @@ class LinkController extends AdminController
     }
 
     public function destroy($id){
-        $link = Link::find($id);
-        if (is_null($link)){
+        $result = Link::find($id);
+        if (is_null($result)){
             return [
                 'status' => '1',
                 'msg' => '数据异常',
             ];
         }
-        if ($link->delete()){
+        if ($result->delete()){
             return [
                 'status' => 0,
                 'result' => '删除成功'
@@ -157,8 +157,8 @@ class LinkController extends AdminController
             ];
         }else{
             $link->link_order = $request->input('link_order');
-            $res = $link->update();
-            if ($res){
+            $result = $link->update();
+            if ($result){
                 return [
                     'status' => '0',
                     'result' => '操作成功',

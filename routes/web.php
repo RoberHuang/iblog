@@ -59,6 +59,14 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     $router->post('link/setOrder', 'LinkController@setOrder');
     $router->resource('link', 'LinkController');
 
+    $router->post('nav/setOrder', 'NavController@setOrder');
     $router->resource('nav', 'NavController');
+
+
+
+
+    //session测试
+    /*$router->any('setsession', 'AdminController@setsession');
+    $router->any('getsession', 'AdminController@getsession');*/
 
 });

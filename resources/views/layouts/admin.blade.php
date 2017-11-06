@@ -38,6 +38,7 @@
     <script type="text/javascript" src="{{ asset('admins/style/js/is-main.admin.js') }}"></script>
     <script type="text/javascript">
         var URL = "{{Request::path()}}";
+        var URL1 = "{{Request::getPathInfo()}}";
     </script>
 </body>
 </html>

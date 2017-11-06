@@ -39,7 +39,7 @@
                 <label class="help-block error_tip"></label>
             </div>
             <div class="form-group">
-                {!!  Form::submit('link.submit', ['id'=>'submit', 'class'=> 'btn btn-sm btn-primary']) !!}
+                {!!  Form::submit('link.submit', ['id'=>'update', 'class'=> 'btn btn-sm btn-primary']) !!}
                 {!!  Form::button('link.comeback', ['class'=> 'btn btn-sm btn-default', 'onclick'=>'history.go(-1)']) !!}
             </div>
             {!! Form::close() !!}
@@ -48,7 +48,7 @@
 </div>
 <script type="text/javascript">
     $(function () {
-        $('#submit').click(function () {
+        $('#update').click(function () {
             $.ajax({
                 url: "{{ url('admin/link/'.$result->id) }}",
                 data: $('#form').serialize(),

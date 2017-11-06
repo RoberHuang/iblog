@@ -46,26 +46,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        $('#submit').click(function () {
-            $.ajax({
-                url: "{{ url('admin/link') }}",
-                data: $('#form').serialize(),
-                type: 'POST',
-                dataType: 'json',
-                success: function(data){
-                    if (data.status == 0){
-                        layer.msg(data.result, {icon: 6});
-                        window.setTimeout(function () {
-                            document.location = "{{ url('admin/link') }}"
-                        }, 3000);
-                    }else{
-                        $('.error_tip').html(data.result);
-                    }
-                }
-            });
-        });
-    });
-</script>
 @endsection

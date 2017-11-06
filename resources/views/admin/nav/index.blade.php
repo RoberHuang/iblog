@@ -55,7 +55,7 @@
                     @foreach($data as $v)
                     <tr>
                         <td class="text-center">
-                            <input type="text" onchange="changeOrder(this,{{$v->id}})" value="{{$v->nav_order}}">
+                            <input type="text" onchange="changeOrder(this, '{{$v->id}}')" value="{{$v->nav_order}}" style="width:30px;text-align:center">
                         </td>
                         <td class="text-center">{{$v->id}}</td>
                         <td>
@@ -84,16 +84,15 @@
         var nav_order = $(obj).val();
         $.post("{{url('admin/nav/setOrder')}}",{'_token':'{{csrf_token()}}','id':nav_id,'nav_order':nav_order},function(data){
             if(data.status == 0){
-                layer.msg(data.msg, {icon: 6});
+                layer.msg(data.result, {icon: 6});
             }else{
-                layer.msg(data.msg, {icon: 5});
+                layer.msg(data.result, {icon: 5});
                 window.setTimeout(function () {
                     document.location = "{{ url('admin/nav') }}"
                 }, 3000);
             }
         });
     }
-
     //删除自定义导航
     function del(id) {
         layer.confirm('您确定要删除这个导航吗？', {

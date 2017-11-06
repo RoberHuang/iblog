@@ -85,9 +85,9 @@
         var cate_order = $(obj).val();
         $.post("{{url('admin/cate/setOrder')}}",{'_token':'{{csrf_token()}}','id':cate_id,'cate_order':cate_order},function(data){
             if(data.status == 0){
-                layer.msg(data.msg, {icon: 6});
+                layer.msg(data.result, {icon: 6});
             }else{
-                layer.msg(data.msg, {icon: 5});
+                layer.msg(data.result, {icon: 5});
             }
         });
     }
@@ -98,12 +98,12 @@
         }, function(){
             $.post("{{url('admin/category')}}/"+cate_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
                 if(data.status==0){
-                    layer.msg(data.msg, {icon: 6});
+                    layer.msg(data.result, {icon: 6});
                     window.setTimeout(function () {
                         location.href = location.href;
                     },3000);
                 }else{
-                    layer.msg(data.msg, {icon: 5});
+                    layer.msg(data.result, {icon: 5});
                 }
             });
         }, function(){

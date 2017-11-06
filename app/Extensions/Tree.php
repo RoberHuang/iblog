@@ -6,7 +6,7 @@
  * Time: 13:10
  */
 
-namespace resources\org;
+namespace App\extensions;
 
 class Tree
 {
