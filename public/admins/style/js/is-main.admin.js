@@ -1,5 +1,5 @@
 //添加
-$(function () {
+/*$(function () {
     $('#submit').click(function () {
         var url = ($('#form').attr('action'));
         $.ajax({
@@ -22,7 +22,7 @@ $(function () {
             }
         });
     });
-});
+});*/
 
 //排序
 function changeOrder(obj, id, url){
@@ -59,12 +59,6 @@ function del(url) {
 }
 
 
-//验证
-function beforeSendForm(arr, $frm, options)
-{
-    $('#loader').show();
-    return CheckForm(arr, $frm, options);
-}
 //ajax成功后回调
 function response(res)
 {
@@ -83,102 +77,83 @@ function response(res)
     }, 5000);
 }
 
-//初始化表单验证
-function initFormCheck(carr)
-{
-    checkArray = carr || checkArray; //checkArray可以外部定义
-    if(typeof checkArray != 'undefined')
-    {
-        $(checkArray).each(function(){
-            var self = this;
-            var o = $('input[name="' +this.name+ '"], select[name="' +this.name+ '"]').get(0);
-            if(o)
-            {
-                for(var i in self)
-                {
-                    o[i] = self[i];
-                    if(i == 'check' && self[i] != '')
-                    {
-                        var arr = trim(self[i]).split(/\s+/);
-                        if(arr.length > 1)
-                        {
-                            for(var j = 0; j < arr.length; j ++)
-                            {
-                                if(arr[j] == 'Require' || arr[j] == 'PRequire' || arr[j] == 'Username')
-                                {
-                                    $(o).addClass('bLeftRequire');
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if(arr == 'Require' || arr == 'PRequire' || arr == 'Username')
-                            {
-                                $(o).addClass('bLeftRequire');
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-}
-
-//初始化表单样式，.date .ip
-function initFormElement()
-{
-    if(typeof $.fn.datepicker != 'undefined')
-    {
-        $('form input.date').datepicker({
-            changeMonth: true,
-            changeYear: true
-        });
-    }
-}
-
 /**
  * 初始化AJAX表单，表单样式和表单验证
- * @param frm    表单[可选参数]
+ * @param _formId    表单[可选参数]
+ * @param _rollback    表单[可选参数]
+ * @param _validate    表单[可选参数]
+ * @param _dataType    表单[可选参数]
  */
-function initAjaxForm(frm, submit)
-{
-    if(typeof frm != 'undefined')
-    {
-        $(frm).ready(function(){
-            initFormCheck();
-            initFormElement();
-        });
-        $(frm).ajaxForm({
-            beforeSubmit:  function(els, frm){
-                if(!CheckForm(els, frm))
-                {
+function initAjaxForm(_formId, _rollback, _validate, _dataType){
+    var options = {
+        target:         typeof(_rollback) == "string" ? _rollback:'',
+        beforeSubmit:   function(formData, jqForm, options){
+            $('#'+_formId + " :input").blur();  //
+
+            if($('#'+_formId).errors.size()>0){
+                $('#'+_formId + " :input[type=submit]").attr('disabled','');
+                return false;
+            }
+            alert(typeof(_validate));
+            if(typeof(_validate) == "function"){
+                alert(1);
+                if(_validate.call(this,formData, jqForm, options) == false){
+                    $('#'+_formId + " :input[type=submit]").attr('disabled','');
                     return false;
                 }
-                if(typeof submit === 'function')
-                {
-                    return submit.call(this);
+            }
+            $('#content'+' span.loading').fadeIn("fast");
+            clearSelectAll('#'+_formId);
+            return true;
+        },
+        success:    function(responseText, statusText){
+            $('#content'+' span.loading').fadeOut("slow");
+            if(typeof(_rollback) == "function"){
+                try {
+                    //服务器端输出的JSON格式"{msg:'密码重置成功'}"
+                    _rollback.call(this,true,eval("("+responseText+")").msg);
+                }catch(exception) {
+                    _rollback.call(this,false,responseText);
                 }
-            },  // pre-submit callback
-            success:       response,  // post-submit callback
-            dataType:      'json'
-        });
-    }
-    else
-    {
-        $('form.ajaxForm').ajaxForm({
-            beforeSubmit: function(els, frm){
-                if(!CheckForm(els, frm))
-                {
+            }
+        },
+        dataType:   _dataType?_dataType:'json'
+    };
+    $('#'+_formId).ajaxForm(options); // bind form using 'ajaxForm'
+}
+
+function initAjaxForm1(_formId, _rollback, _validate, _dataType){
+    var options = {
+        target:         typeof(_rollback) == "string" ? _rollback:'',
+        beforeSubmit:   function(formData, jqForm, options){
+            $('#'+_formId + " :input").blur();  //
+
+            if($('#'+_formId).errors.size()>0){
+                $('#'+_formId + " :input[type=submit]").attr('disabled','');
+                return false;
+            }
+            if(typeof(_validate) == "function"){
+                if(_validate.call(this,formData, jqForm, options) == false){
+                    $('#'+_formId + " :input[type=submit]").attr('disabled','');
                     return false;
                 }
-                if(typeof submit === 'function')
-                {
-                    return submit.call(frm);
+            }
+            $('#content'+' span.loading').fadeIn("fast");
+            clearSelectAll('#'+_formId);
+            return true;
+        },
+        success:    function(responseText, statusText){
+            $('#content'+' span.loading').fadeOut("slow");
+            if(typeof(_rollback) == "function"){
+                try {
+                    //服务器端输出的JSON格式"{msg:'密码重置成功'}"
+                    _rollback.call(this,true,eval("("+responseText+")").msg);
+                }catch(exception) {
+                    _rollback.call(this,false,responseText);
                 }
-            },  // pre-submit callback
-            success:       response,  // post-submit callback
-            dataType:      'json'
-        });
-    }
+            }
+        },
+        dataType:   _dataType?_dataType:'json'
+    };
+    $('#'+_formId).ajaxForm(options); // bind form using 'ajaxForm'
 }

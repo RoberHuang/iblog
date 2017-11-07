@@ -17,7 +17,12 @@
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-style.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/css/is-main.admin.css') }}">
     <link rel="stylesheet" href="{{ asset('admins/style/font/css/font-awesome.min.css') }}">
-    <script src="{{ asset('js/jquery.js') }}"></script>
+
+    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
+    <script src="{{ asset('admins/style/js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('admins/style/js/jquery.form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('admins/style/js/is-main.admin.js') }}"></script>
 </head>
 <body>
     <div id="app">
@@ -32,10 +37,7 @@
     </div>
 
     <!-- Scripts -->
-    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admins/org/layer/layer.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('admins/style/js/is-main.admin.js') }}"></script>
     <script type="text/javascript">
         var URL = "{{Request::path()}}";
         var URL1 = "{{Request::getPathInfo()}}";

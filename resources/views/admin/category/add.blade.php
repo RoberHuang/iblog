@@ -28,7 +28,7 @@
             @endif
         </div>
     </div>
-    <form class="form-horizontal" role="form" method="POST" action="{{url('admin/category')}}">
+    <form id="ajaxForm" class="form-horizontal" role="form" method="POST" action="{{url('admin/category')}}">
         {{csrf_field()}}
         <div class="form-group form-group-sm{{$errors->has('cate_pid')?' has-error':''}}">
             <label for="cate_pid" class="col-sm-2 control-label"><i class="require">*</i>{{ trans('admin/category.pid_type') }}</label>
@@ -79,6 +79,9 @@
                 <p class="help-block">{{ $errors->first('cate_order') }}</p>
             </div>
         </div>
+        <div class="has-error">
+            <span class="help-block error_tip"></span>
+        </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-sm btn-primary">{{trans('admin/common.submit')}}</button>
@@ -87,5 +90,9 @@
         </div>
     </form>
 </div>
-
+<script type="text/javascript">
+    initAjaxForm('ajaxForm', '.error_tip', function(){
+        alert(2);
+    });
+</script>
 @endsection
