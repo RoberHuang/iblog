@@ -29,6 +29,11 @@ class CategoryController extends AdminController
     }
 
     public function store(Request $request){
+        return [
+            'status' => '1',
+            'errors' => trans('admin/common.data_abnormal')
+        ];
+
         //dd(Input::all());
         //$input = Input::except('_token');
         //dd($request->all());

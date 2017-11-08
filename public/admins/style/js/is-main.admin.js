@@ -58,10 +58,20 @@ function del(url) {
     });
 }
 
+/**
+ * 重定向到url
+ * @param url    重定向地址
+ */
+function redirectToUrl(url) {
+    window.setTimeout(function () {
+        document.location = url;
+    }, 3000);
+}
 
-//ajax成功后回调
+//ajax成功后回调函数
 function response(res)
 {
+    alert('ajax成功后回调函数');
     $('#loader').hide();
     if (res.status == 1)
     {
@@ -79,24 +89,151 @@ function response(res)
 
 /**
  * 初始化AJAX表单，表单样式和表单验证
- * @param _formId    表单[可选参数]
- * @param _rollback    表单[可选参数]
- * @param _validate    表单[可选参数]
- * @param _dataType    表单[可选参数]
+ * @param _formId       表单id
+ * @param _validate     表单前台校验函数[可选参数]
+ * @param _rollback     ajax成功后回调函数[可选参数]
+ * @param _dataType     接受服务端返回的类型[可选参数]
  */
-function initAjaxForm(_formId, _rollback, _validate, _dataType){
+function initAjaxForm(_formId, _validate, _rollback, _dataType){
+    var options = {
+        target:         typeof(_rollback) == "string" ? _rollback:'',
+        /**
+         * 表单提交前执行的方法
+         * @param formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]
+         * @param jqForm:   jQuery对象，封装了表单的元素
+         * @param options:  options对象
+         */
+        beforeSubmit:   function(formData, jqForm, options){
+            //var queryString = $.param(formData);  //name=1&address=2
+            /*for (var i=0; i < formData.length; i++) {
+                alert(formData[i].name+' '+formData[i].value);
+            }*/
+            //var formElement = jqForm[0];              //将jqForm转换为DOM对象
+            //var cate_name = formElement.cate_name.value;  //访问jqForm的DOM元素
+
+            if(typeof(_validate) == "function"){
+                if(_validate.call(this,formData, jqForm, options) == false){
+                    return false;
+                }
+            }
+            //$('#content'+' span.loading').fadeIn("fast");
+            return true;
+        },
+        success:    function(responseText, statusText){
+            //$('#content'+' span.loading').fadeOut("slow");
+            if(typeof(_rollback) == "function"){
+                try {
+                    //服务器端输出的JSON格式"{msg:'密码重置成功'}"
+                    _rollback.call(this,true,responseText);
+                }catch(exception) {
+                    _rollback.call(this,false,responseText);
+                }
+            }else{
+                response(responseText);
+            }
+        },
+        error: function (er) {
+            //var json=JSON.parse(er.responseText);
+            //var json=eval('('+er.responseText+')');
+            var json = $.parseJSON(er.responseText);
+            for (var i in json.errors){
+                $('span#' + i).parents('.form-group').addClass('has-error');
+                $('span#' + i).html(json.errors[i]);
+            }
+        },
+        dataType:   _dataType?_dataType:'json'
+    };
+    $('#'+_formId).ajaxForm(options); // bind form using 'ajaxForm'
+}
+
+function showTip(errors, status) {
+    if(TIME.timeout > 0) {
+        window.clearTimeout(TIME.timeout);
+    }
+
+    //$('#error_tip').empty().show();
+    $('#error_tip').html(errors).animate("slow");
+    //$('div#PldAjaxResult').empty().show();
+
+    TIME.timeout = window.setTimeout(function(){
+        $('#error_tip').fadeOut("slow");
+        /*$('div#PldAjaxResult').fadeOut('slow', function(){
+            $('div#PldAjaxResult').css({top:pos.top}).empty();
+        });*/
+    }, 4000);
+}
+
+/**
+ * 设置AJAX的全局默认设置
+ * 之后执行的所有AJAX请求，如果对应的选项参数没有设置，将使用更改后的默认设置
+ * @settings beforeSend     (局部事件) 当一个Ajax请求开始时触发。如果需要，你可以在这里设置XMLHttpRequest对象
+ * @settings complete       (局部事件) 不管你请求成功还是失败，即便是同步请求，你都能在请求完成时触发这个事件
+ * @settings success        (局部事件) 请求成功时触发。即服务器没有返回错误，返回的数据也没有错误
+ */
+function initAjax() {
+    $.ajaxSetup({
+        beforeSend: function () {
+            //alert('当一个Ajax请求开始时触发');
+        },
+        complete:function(o){
+            //alert('对象状态，4为完成: ' + o.readyState);
+            if (typeof o != 'undefined' && o.readyState == 4 && typeof o.responseText != 'undefined'){
+                //alert('服务器返回状态，200表示成功: ' + o.status);
+                try{
+                    var data = $.parseJSON(o.responseText);
+                }catch (e){
+                    return ;
+                }
+                if (data && typeof data.errors != 'undefined') {
+                    if (o.status == '200') {
+                        showTip(data.errors, data.status);
+                    } else {
+                        if (typeof errors == 'object'){
+                            for (var i in data.errors) {
+                                var msg = data.errors[i];
+                            }
+                            showTip(msg, 1);
+                        }else {
+                            showTip(data.message, 1);
+                        }
+                    }
+                }
+            }
+        },
+        success: function(responseText){
+
+        }
+    });
+}
+
+var TIME = {}
+
+$(function () {
+    initAjax();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*function initAjaxForm1(_formId, _rollback, _validate, _dataType){
     var options = {
         target:         typeof(_rollback) == "string" ? _rollback:'',
         beforeSubmit:   function(formData, jqForm, options){
             $('#'+_formId + " :input").blur();  //
-
             if($('#'+_formId).errors.size()>0){
                 $('#'+_formId + " :input[type=submit]").attr('disabled','');
                 return false;
             }
-            alert(typeof(_validate));
             if(typeof(_validate) == "function"){
-                alert(1);
                 if(_validate.call(this,formData, jqForm, options) == false){
                     $('#'+_formId + " :input[type=submit]").attr('disabled','');
                     return false;
@@ -120,40 +257,4 @@ function initAjaxForm(_formId, _rollback, _validate, _dataType){
         dataType:   _dataType?_dataType:'json'
     };
     $('#'+_formId).ajaxForm(options); // bind form using 'ajaxForm'
-}
-
-function initAjaxForm1(_formId, _rollback, _validate, _dataType){
-    var options = {
-        target:         typeof(_rollback) == "string" ? _rollback:'',
-        beforeSubmit:   function(formData, jqForm, options){
-            $('#'+_formId + " :input").blur();  //
-
-            if($('#'+_formId).errors.size()>0){
-                $('#'+_formId + " :input[type=submit]").attr('disabled','');
-                return false;
-            }
-            if(typeof(_validate) == "function"){
-                if(_validate.call(this,formData, jqForm, options) == false){
-                    $('#'+_formId + " :input[type=submit]").attr('disabled','');
-                    return false;
-                }
-            }
-            $('#content'+' span.loading').fadeIn("fast");
-            clearSelectAll('#'+_formId);
-            return true;
-        },
-        success:    function(responseText, statusText){
-            $('#content'+' span.loading').fadeOut("slow");
-            if(typeof(_rollback) == "function"){
-                try {
-                    //服务器端输出的JSON格式"{msg:'密码重置成功'}"
-                    _rollback.call(this,true,eval("("+responseText+")").msg);
-                }catch(exception) {
-                    _rollback.call(this,false,responseText);
-                }
-            }
-        },
-        dataType:   _dataType?_dataType:'json'
-    };
-    $('#'+_formId).ajaxForm(options); // bind form using 'ajaxForm'
-}
+}*/
