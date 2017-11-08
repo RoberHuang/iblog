@@ -24,7 +24,12 @@
     });
 });*/
 
-//排序
+/**
+ * 排序
+ * @param obj    当前对象
+ * @param id    当前对象id
+ * @param url    提交地址
+ */
 function changeOrder(obj, id, url){
     var token = $('meta[name="csrf-token"]').attr('content');
     var order = $(obj).val();
@@ -37,7 +42,10 @@ function changeOrder(obj, id, url){
     });
 }
 
-//删除
+/**
+ * 删除
+ * @param url    提交地址
+ */
 function del(url) {
     layer.confirm(CONFIRM_DEL, {
         btn: [SURE, CANCEL]
@@ -68,7 +76,11 @@ function redirectToUrl(url) {
     }, 3000);
 }
 
-//ajax成功后回调函数
+
+/**
+ * ajax成功后回调函数
+ * @param res    ajax返回信息对象
+ */
 function response(res)
 {
     alert('ajax成功后回调函数');
@@ -96,7 +108,7 @@ function response(res)
  */
 function initAjaxForm(_formId, _validate, _rollback, _dataType){
     var options = {
-        target:         typeof(_rollback) == "string" ? _rollback:'',
+        target:         typeof(_rollback) == "string" ? _rollback : '',
         /**
          * 表单提交前执行的方法
          * @param formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]
@@ -135,31 +147,59 @@ function initAjaxForm(_formId, _validate, _rollback, _dataType){
         error: function (er) {
             //var json=JSON.parse(er.responseText);
             //var json=eval('('+er.responseText+')');
-            var json = $.parseJSON(er.responseText);
-            for (var i in json.errors){
-                $('span#' + i).parents('.form-group').addClass('has-error');
-                $('span#' + i).html(json.errors[i]);
-            }
         },
         dataType:   _dataType?_dataType:'json'
     };
     $('#'+_formId).ajaxForm(options); // bind form using 'ajaxForm'
 }
 
-function showTip(errors, status) {
+/**
+ * 对象提示信息函数
+ * @param errors     提示信息对象
+ */
+function showObjTip(errors) {
+    for (var i in errors) {
+        if ($('span.' + i).length > 0){
+            $('span.' + i).parent().addClass('has-error');
+            $('span.' + i).html(errors[i]).show();
+
+            if(TIME.timeout1 > 0) {
+                window.clearTimeout(TIME.timeout1);
+            }
+
+            TIME.timeout1 = window.setTimeout(function(){
+                $('div.has-error').find('span').empty().hide();
+            }, 4000);
+        }else{
+            showTip(errors[i], 1);
+            break;
+        }
+    }
+}
+
+/**
+ * 字符串提示信息函数
+ * @param error     提示信息
+ * @param status    状态，1表示失败，0表示成功
+ */
+function showTip(error, status) {
     if(TIME.timeout > 0) {
         window.clearTimeout(TIME.timeout);
     }
 
-    //$('#error_tip').empty().show();
-    $('#error_tip').html(errors).animate("slow");
-    //$('div#PldAjaxResult').empty().show();
+    //$('.show_tip').html(error).fadeIn("slow");
+    $('.show_tip').empty().show();
+    var pos = $('.show_tip').position();
+    var color = status == '1' ? 'red' : 'green';
+
+    $('.show_tip').html(error).css({top: pos.top - 30, color: color}).animate({
+        top: pos.top
+    }, 500);
 
     TIME.timeout = window.setTimeout(function(){
-        $('#error_tip').fadeOut("slow");
-        /*$('div#PldAjaxResult').fadeOut('slow', function(){
-            $('div#PldAjaxResult').css({top:pos.top}).empty();
-        });*/
+        $('.show_tip').fadeOut('slow', function(){
+            $('.show_tip').css({top:pos.top}).empty();
+        });
     }, 4000);
 }
 
@@ -188,11 +228,8 @@ function initAjax() {
                     if (o.status == '200') {
                         showTip(data.errors, data.status);
                     } else {
-                        if (typeof errors == 'object'){
-                            for (var i in data.errors) {
-                                var msg = data.errors[i];
-                            }
-                            showTip(msg, 1);
+                        if (typeof data.errors == 'object'){
+                            showObjTip(data.errors);
                         }else {
                             showTip(data.message, 1);
                         }
@@ -206,6 +243,9 @@ function initAjax() {
     });
 }
 
+/**
+ * 定义定时器对象存放器
+ */
 var TIME = {}
 
 $(function () {

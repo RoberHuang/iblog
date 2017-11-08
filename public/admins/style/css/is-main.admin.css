@@ -21,6 +21,20 @@
     font-size:18px
 }
 
+/*信息提示*/
+.show_tip{
+    display:none;
+    box-shadow:2px 2px 4px #8aC;
+    z-index:100;
+    min-width:100px;
+    border:1px solid #ec971f;
+    border-radius:2px;
+    padding:3px 5px;
+    position:absolute;
+    right:15px;
+    top:50px;
+}
+
 /*主体title*/
 .main_title {
     padding: 10px 15px 0 15px;

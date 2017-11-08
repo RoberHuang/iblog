@@ -33,6 +33,7 @@
         </div>
         <!--面包屑导航 结束-->
         <div class="h_40"></div>
+        <div class="show_tip"></div>
         @yield('content')
     </div>
 
