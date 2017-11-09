@@ -41,42 +41,42 @@
                 </select>
             </div>
             <div class="col-sm-6 col-lg-7">
-                <span class="cate_pid help-block"></span>
+                <span class="cate_pid error"></span>
             </div>
         </div>
         <div class="form-group form-group-sm">
             <label for="cate_name" class="col-sm-2 control-label"><i class="require">*</i>{{ trans('admin/category.cate_name') }}</label>
             <div class="col-sm-4 col-lg-3"><input type="text" class="form-control" name="cate_name" required></div>
             <div class="col-sm-6 col-lg-7">
-                <span class="cate_name help-block"></span>
+                <span class="cate_name error"></span>
             </div>
         </div>
         <div class="form-group form-group-sm">
             <label for="cate_title" class="col-sm-2 control-label">{{ trans('admin/category.cate_title') }}</label>
             <div class="col-sm-4 col-lg-3"><input type="text" class="form-control" name="cate_title"></div>
             <div class="col-sm-6 col-lg-7">
-                <span class="cate_title help-block"></span>
+                <span class="cate_title error"></span>
             </div>
         </div>
         <div class="form-group form-group-sm">
             <label for="cate_keywords" class="col-sm-2 control-label">{{ trans('admin/category.cate_keywords') }}</label>
             <div class="col-sm-4 col-lg-3"><textarea class="form-control" name="cate_keywords"></textarea></div>
             <div class="col-sm-6 col-lg-7">
-                <span class="cate_keywords help-block"></span>
+                <span class="cate_keywords error"></span>
             </div>
         </div>
         <div class="form-group form-group-sm">
             <label for="cate_description" class="col-sm-2 control-label">{{ trans('admin/category.cate_description') }}</label>
             <div class="col-sm-4 col-lg-3"><textarea class="form-control" name="cate_description"></textarea></div>
             <div class="col-sm-6 col-lg-7">
-                <span class="cate_description help-block"></span>
+                <span class="cate_description error"></span>
             </div>
         </div>
         <div class="form-group form-group-sm">
             <label for="cate_order" class="col-sm-2 control-label"><i class="require">*</i>{{ trans('admin/category.cate_order') }}</label>
             <div class="col-sm-4 col-lg-3"><input type="text" class="form-control" name="cate_order" required></div>
             <div class="col-sm-6 col-lg-7">
-                <span class="cate_order help-block"></span>
+                <span class="cate_order error"></span>
             </div>
         </div>
         <div class="form-group">

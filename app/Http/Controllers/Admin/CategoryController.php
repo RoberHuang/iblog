@@ -18,7 +18,7 @@ class CategoryController extends AdminController
         $data = $code->createTree($category, 'id', 'cate_pid', 'cate_name');
         $path = ['module'=> 'category', 'action'=> 'index'];
 
-        return view('admin.category.index', compact('data', 'path'));
+        return view('admin.category.index', compact('data', 'path', 'category'));
     }
 
     public function create(){
@@ -29,11 +29,6 @@ class CategoryController extends AdminController
     }
 
     public function store(Request $request){
-        /*return [
-            'status' => '1',
-            'errors' => trans('admin/common.data_abnormal')
-        ];*/
-
         //dd(Input::all());
         //$input = Input::except('_token');
         //dd($request->all());
@@ -46,9 +41,15 @@ class CategoryController extends AdminController
 
         $res = Category::create($request->all());
         if ($res){
-            return redirect('admin/category');
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.add_success')
+            ];
         }else{
-            return back()->withErrors(['errormsg'=> trans('admin/common.add_fail')]);
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.add_fail')
+            ];
         }
     }
 
@@ -57,19 +58,19 @@ class CategoryController extends AdminController
         if (is_null($result)){
             return [
                 'status' => '1',
-                'result' => trans('admin/common.data_abnormal'),
+                'errors' => trans('admin/common.data_abnormal')
             ];
         }
         if ($result->delete()){
             Category::where('cate_pid', $id)->update(['cate_pid'=>$result->cate_pid]);
             $data = [
                 'status' => '0',
-                'result' => trans('admin/common.operation_success'),
+                'errors' => trans('admin/common.operation_success')
             ];
         }else{
             $data = [
                 'status' => '1',
-                'result' => trans('admin/common.operation_fail'),
+                'errors' => trans('admin/common.operation_fail')
             ];
         }
 
@@ -93,9 +94,15 @@ class CategoryController extends AdminController
 
         $res = Category::where('id', $id)->update($input);
         if ($res){
-            return redirect('admin/category');
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.edit_success')
+            ];
         }else{
-            return back()->withErrors(['errormsg'=> trans('admin/common.edit_fail')]);
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.edit_fail')
+            ];
         }
     }
 
@@ -109,7 +116,7 @@ class CategoryController extends AdminController
         if (is_null($cate)){
             $data = [
                 'status' => '1',
-                'result' => trans('admin/common.data_abnormal'),
+                'errors' => trans('admin/common.data_abnormal')
             ];
         }else{
             $cate->cate_order = $request->input('order');
@@ -118,12 +125,12 @@ class CategoryController extends AdminController
             if ($re){
                 $data = [
                     'status' => '0',
-                    'result' => trans('admin/common.operation_success'),
+                    'errors' => trans('admin/common.operation_success')
                 ];
             }else{
                 $data = [
                     'status' => '1',
-                    'result' => trans('admin/common.operation_fail'),
+                    'errors' => trans('admin/common.operation_fail')
                 ];
             }
         }

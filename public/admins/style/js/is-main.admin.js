@@ -34,10 +34,8 @@ function changeOrder(obj, id, url){
     var token = $('meta[name="csrf-token"]').attr('content');
     var order = $(obj).val();
     $.post(url, {'_token': token, 'id': id, 'order': order}, function(data){
-        if(data.status == 0){
-            layer.msg(data.result, {icon: 6});
-        }else{
-            layer.msg(data.result, {icon: 5});
+        if(data.status == 1){
+            refresh();
         }
     });
 }
@@ -50,15 +48,11 @@ function del(url) {
     layer.confirm(CONFIRM_DEL, {
         btn: [SURE, CANCEL]
     }, function(){
+        layer.closeAll('dialog');   //关闭信息框
         var token = $('meta[name="csrf-token"]').attr('content');
         $.post(url, {'_method': 'delete','_token': token},function (data) {
             if(data.status==0){
-                layer.msg(data.result, {icon: 6});
-                window.setTimeout(function () {
-                    location.href = location.href;
-                },3000);
-            }else{
-                layer.msg(data.result, {icon: 5});
+                refresh();
             }
         });
     }, function(){
@@ -67,15 +61,27 @@ function del(url) {
 }
 
 /**
+ * 刷新页面
+ * @param url    重定向地址
+ */
+function refresh(msec)
+{
+    msec = msec || 3000;
+    window.setTimeout(function(){
+        document.location.reload();
+    }, msec);
+}
+
+/**
  * 重定向到url
  * @param url    重定向地址
  */
-function redirectToUrl(url) {
+function redirectToUrl(url, msec) {
+    msec = msec || 3000;
     window.setTimeout(function () {
         document.location = url;
-    }, 3000);
+    }, msec);
 }
-
 
 /**
  * ajax成功后回调函数
@@ -157,10 +163,10 @@ function initAjaxForm(_formId, _validate, _rollback, _dataType){
  * 对象提示信息函数
  * @param errors     提示信息对象
  */
-function showObjTip(errors) {
+function showObjTip(errors, status) {
+    var status = status || 1;
     for (var i in errors) {
         if ($('span.' + i).length > 0){
-            $('span.' + i).parent().addClass('has-error');
             $('span.' + i).html(errors[i]).show();
 
             if(TIME.timeout1 > 0) {
@@ -168,10 +174,10 @@ function showObjTip(errors) {
             }
 
             TIME.timeout1 = window.setTimeout(function(){
-                $('div.has-error').find('span').empty().hide();
+                $('span.error').empty().hide();
             }, 4000);
         }else{
-            showTip(errors[i], 1);
+            showTip(errors[i], status);
             break;
         }
     }
@@ -225,11 +231,11 @@ function initAjax() {
                     return ;
                 }
                 if (data && typeof data.errors != 'undefined') {
-                    if (o.status == '200') {
-                        showTip(data.errors, data.status);
-                    } else {
-                        if (typeof data.errors == 'object'){
-                            showObjTip(data.errors);
+                    if (typeof data.errors == 'object'){
+                        showObjTip(data.errors);
+                    }else {
+                        if (o.status == '200') {
+                            showTip(data.errors, data.status);
                         }else {
                             showTip(data.message, 1);
                         }

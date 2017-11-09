@@ -56,7 +56,7 @@ class ArticleController extends AdminController
         if (!$res->passes()){
             return [
                 'status' => 1,
-                'result' => $res->errors()->first(),
+                'errors' => $res->errors()->first(),
             ];
         }
 
@@ -71,12 +71,12 @@ class ArticleController extends AdminController
         if ($result){
             return [
                 'status' => 0,
-                'result' => '添加成功',
+                'errors' => trans('admin/common.add_success')
             ];
         }else{
             return [
                 'status' => 1,
-                'result' => '添加失败',
+                'errors' => trans('admin/common.add_fail')
             ];
         }
     }
@@ -107,7 +107,7 @@ class ArticleController extends AdminController
         if (!$res->passes()){   //$res->fails()
             return [
                 'status' => 1,
-                'result' => $res->errors()->first()
+                'errors' => $res->errors()->first()
             ];
         }
 
@@ -119,12 +119,12 @@ class ArticleController extends AdminController
         if ($result){
             return [
                 'status' => 0,
-                'result' => '修改成功'
+                'errors' => trans('admin/common.edit_success')
             ];
         }else{
             return [
                 'status' => 1,
-                'result' => '修改失败'
+                'errors' => trans('admin/common.edit_fail')
             ];
         }
     }
@@ -134,7 +134,7 @@ class ArticleController extends AdminController
         if (is_null($result)){
             return [
                 'status' => '1',
-                'result' => '数据异常',
+                'errors' => trans('admin/common.data_abnormal')
             ];
         }
         if ($result->delete()){
@@ -143,12 +143,13 @@ class ArticleController extends AdminController
             }
             $data = [
                 'status' => 0,
-                'result' => '删除成功'
+                'errors' => trans('admin/common.operation_success')
             ];
         }else{
+            $this->error();
             $data = [
                 'status' => 1,
-                'result' => '删除失败'
+                'errors' => trans('admin/common.operation_fail')
             ];
         }
         return $data;

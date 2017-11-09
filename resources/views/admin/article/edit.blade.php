@@ -28,7 +28,7 @@
 <!--结果集标题与导航组件 结束-->
 
 <div class="main_content">
-    <form id="form" role="form" method="POST" action="{{url('admin/article'.$result->id)}}" onsubmit="return false">
+    <form id="ajaxForm" role="form" method="POST" action="{{url('admin/article/'.$result->id)}}">
         <input type="hidden" name="_method" value="put">
         {{csrf_field()}}
         <div class="row">
@@ -151,26 +151,19 @@
     </form>
 </div>
 
-    <script type="text/javascript">
-        $(function(){
-            $('#submit').click(function () {
-                $.ajax({
-                    url: "{{url('admin/article/'.$result->id)}}",
-                    data: $('#form').serialize(),
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.status == 0){
-                            layer.msg(data.result, {icon: 6});
-                            window.setTimeout(function(){
-                                document.location = "{{url('admin/article')}}";
-                            }, 500);
-                        }else{
-                            $('.error_tip').html(data.result);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+<script type="text/javascript">
+    initAjaxForm('ajaxForm', function(formData, jqForm, options){
+        var article_description = $('textarea[name="article_description"]').val();
+        if (article_description == ''){
+            $('.error_tip').html('标题不能为空');
+            return false;
+        }
+    },function (state, data) {
+        if (state == true){
+            if (data.status == 0){
+                redirectToUrl("{{url('admin/article')}}");
+            }
+        }
+    });
+</script>
 @endsection

@@ -25,20 +25,7 @@
 <!--结果集标题与导航组件 结束-->
 
 <div class="main_content">
-    <div class="row">
-        <div class="col-sm-4 col-lg-3 col-sm-offset-2">
-            @if ($errors->has('errormsg'))
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                        &times;
-                    </button>
-                    {{ $errors->first('errormsg') }}
-                </div>
-            @endif
-        </div>
-    </div>
-
-    <form class="form-horizontal" role="form" method="POST" action="{{url('admin/category/'.$result->id)}}">
+    <form id="ajaxForm" class="form-horizontal" role="form" method="POST" action="{{url('admin/category/'.$result->id)}}">
         <input type="hidden" name="_method" value="put">
         {{csrf_field()}}
         <div class="form-group form-group-sm{{$errors->has('cate_pid')?' has-error':''}}">
@@ -52,42 +39,42 @@
                 </select>
             </div>
             <div class="col-sm-6 col-lg-7">
-                <p class="help-block">{{ $errors->first('cate_pid') }}</p>
+                <span class="cate_pid help-block">{{ $errors->first('cate_pid') }}</span>
             </div>
         </div>
         <div class="form-group form-group-sm{{ $errors->has('cate_name') ? ' has-error' : '' }}">
             <label for="cate_name" class="col-sm-2 control-label"><i class="require">*</i>{{ trans('admin/category.cate_name') }}</label>
             <div class="col-sm-4 col-lg-3"><input id="cate_name" type="text" class="form-control" name="cate_name" value="{{$result->cate_name}}" required></div>
             <div class="col-sm-6 col-lg-7">
-                <p class="help-block">{{ $errors->first('cate_name') }}</p>
+                <span class="cate_name help-block">{{ $errors->first('cate_name') }}</span>
             </div>
         </div>
         <div class="form-group form-group-sm{{ $errors->has('cate_title') ? ' has-error' : '' }}">
             <label for="cate_title" class="col-sm-2 control-label">{{ trans('admin/category.cate_title') }}</label>
             <div class="col-sm-4 col-lg-3"><input id="cate_title" type="text" class="form-control" name="cate_title" value="{{$result->cate_title}}"></div>
             <div class="col-sm-6 col-lg-7">
-                <p class="help-block">{{ $errors->first('cate_title') }}</p>
+                <span class="cate_title help-block">{{ $errors->first('cate_title') }}</span>
             </div>
         </div>
         <div class="form-group form-group-sm{{ $errors->has('cate_keywords') ? ' has-error' : '' }}">
             <label for="cate_keywords" class="col-sm-2 control-label">{{ trans('admin/category.cate_keywords') }}</label>
             <div class="col-sm-4 col-lg-3"><textarea id="cate_keywords" class="form-control" name="cate_keywords">{{$result->cate_keywords}}</textarea></div>
             <div class="col-sm-6 col-lg-7">
-                <p class="help-block">{{ $errors->first('cate_keywords') }}</p>
+                <span class="cate_keywords help-block">{{ $errors->first('cate_keywords') }}</span>
             </div>
         </div>
         <div class="form-group form-group-sm{{ $errors->has('cate_description') ? ' has-error' : '' }}">
             <label for="cate_description" class="col-sm-2 control-label">{{ trans('admin/category.cate_description') }}</label>
             <div class="col-sm-4 col-lg-3"><textarea id="cate_description" class="form-control" name="cate_description">{{$result->cate_description}}</textarea></div>
             <div class="col-sm-6 col-lg-7">
-                <p class="help-block">{{ $errors->first('cate_description') }}</p>
+                <span class="cate_description help-block">{{ $errors->first('cate_description') }}</span>
             </div>
         </div>
         <div class="form-group form-group-sm{{ $errors->has('cate_order') ? ' has-error' : '' }}">
             <label for="cate_order" class="col-sm-2 control-label"><i class="require">*</i>{{ trans('admin/category.cate_order') }}</label>
             <div class="col-sm-4 col-lg-3"><input id="cate_order" type="text" class="form-control" name="cate_order" value="{{$result->cate_order}}" required></div>
             <div class="col-sm-6 col-lg-7">
-                <p class="help-block">{{ $errors->first('cate_order') }}</p>
+                <span class="cate_order help-block">{{ $errors->first('cate_order') }}</span>
             </div>
         </div>
         <div class="form-group">
@@ -98,5 +85,20 @@
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    initAjaxForm('ajaxForm', function(formData, jqForm, options){
+        var cate_title = $('input[name="cate_title"]').val();
+        if (cate_title == ''){
+            $('.cate_title').html('标题不能为空');
+            return false;
+        }
+    },function (state, data) {
+        if (state == true){
+            if (data.status == 0){
+                redirectToUrl("{{url('admin/category')}}");
+            }
+        }
+    });
 
+</script>
 @endsection

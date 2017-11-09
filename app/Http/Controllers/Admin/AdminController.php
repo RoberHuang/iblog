@@ -108,6 +108,10 @@ class AdminController extends Controller
         }*/
     }
 
+    public function success(){
+
+    }
+
     //session测试
     public function setsession(Request $request){
         $request->session()->put('k1', null);

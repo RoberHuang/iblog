@@ -62,7 +62,7 @@
                             <a href="#">{{$v->_cate_name}}</a>
                         </td>
                         <td>{{$v->cate_title}}</td>
-                        <td>{{$v->cate_view}}</td>
+                        <td>{{$v->cate_frequency}}</td>
                         <td>
                             <a href="{{url('admin/category/'.$v->id.'/edit')}}">{{trans('admin/common.modify')}}</a>
                             <a href="javascript:;" onclick="del('{{url('admin/category/'.$v->id)}}')">{{trans('admin/common.delete')}}</a>

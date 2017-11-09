@@ -30,7 +30,7 @@
     border:1px solid #ec971f;
     border-radius:2px;
     padding:3px 5px;
-    position:absolute;
+    position:fixed;
     right:15px;
     top:50px;
 }

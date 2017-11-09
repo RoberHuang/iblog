@@ -42,7 +42,7 @@
                         <td>{{$v->published_at}}</td>
                         <td>
                             <a href="{{url('admin/article/'.$v->id.'/edit')}}">修改</a>
-                            <a href="javascript:;" onclick="delArticle({{$v->id}})">删除</a>
+                            <a href="javascript:;" onclick="del('{{url('admin/article/'.$v->id)}}')">删除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -59,27 +59,5 @@
     </div>
 </form>
 <!--搜索结果页面 列表 结束-->
-
-<script>
-    //删除分类
-    function delArticle(article_id) {
-        layer.confirm('您确定要删除这篇文章吗？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $.post("{{url('admin/article/')}}/"+article_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
-                if(data.status==0){
-                    layer.msg(data.result, {icon: 6});
-                    window.setTimeout(function(){
-                        location.href = location.href;
-                    },3000);
-                }else{
-                    layer.msg(data.result, {icon: 5});
-                }
-            });
-        }, function(){
-
-        });
-    }
-</script>
 
 @endsection

@@ -41,7 +41,7 @@ class LinkController extends AdminController
         if (!$res->passes()){
             return [
                 'status' => 1,
-                'result' => $res->errors()->first(),
+                'errors' => $res->errors()->first(),
             ];
         }
 
@@ -49,12 +49,12 @@ class LinkController extends AdminController
         if ($result){
             return [
                 'status' => 0,
-                'result' => '新增成功'
+                'errors' => trans('admin/common.add_success')
             ];
         }else{
             return [
                 'status' => 1,
-                'result' => '新增失败'
+                'errors' => trans('admin/common.add_fail')
             ];
         }
     }
@@ -90,7 +90,7 @@ class LinkController extends AdminController
         if (!$res->passes()){
             return [
                 'status' => 1,
-                'result' => $res->errors()->first(),
+                'errors' => $res->errors()->first(),
             ];
         }
 
@@ -98,7 +98,7 @@ class LinkController extends AdminController
         if (is_null($link)){
             return [
                 'status' => '1',
-                'msg' => '数据异常',
+                'msg' => trans('admin/common.data_abnormal')
             ];
         }
 
@@ -106,12 +106,12 @@ class LinkController extends AdminController
         if ($result){
             return [
                 'status' => 0,
-                'result' => '修改成功'
+                'errors' => trans('admin/common.edit_success')
             ];
         }else{
             return [
                 'status' => 1,
-                'result' => '修改失败'
+                'errors' => trans('admin/common.edit_fail')
             ];
         }
     }
@@ -121,18 +121,18 @@ class LinkController extends AdminController
         if (is_null($result)){
             return [
                 'status' => '1',
-                'msg' => '数据异常',
+                'errors' => trans('admin/common.data_abnormal')
             ];
         }
         if ($result->delete()){
             return [
                 'status' => 0,
-                'result' => '删除成功'
+                'errors' => trans('admin/common.operation_success')
             ];
         }else{
             return [
                 'status' => 1,
-                'result' => '删除失败'
+                'errors' => trans('admin/common.operation_fail')
             ];
         }
     }
@@ -150,7 +150,7 @@ class LinkController extends AdminController
         if (!$res->passes()){
             return [
                 'status' => 1,
-                'result' => $res->errors()->first(),
+                'errors' => $res->errors()->first(),
             ];
         }
 
@@ -158,7 +158,7 @@ class LinkController extends AdminController
         if (is_null($link)){
             return [
                 'status' => '1',
-                'result' => '数据异常',
+                'errors' => trans('admin/common.data_abnormal')
             ];
         }else{
             $link->link_order = $request->input('link_order');
@@ -166,16 +166,14 @@ class LinkController extends AdminController
             if ($result){
                 return [
                     'status' => '0',
-                    'result' => '操作成功',
+                    'errors' => trans('admin/common.operation_success')
                 ];
             }else{
                 return [
                     'status' => '1',
-                    'result' => '操作失败',
+                    'errors' => trans('admin/common.operation_fail')
                 ];
             }
         }
-
-
     }
 }
