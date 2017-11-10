@@ -16,7 +16,7 @@
 <div class="main_content">
     <div class="row">
         <div class="col-sm-offset-1 col-sm-4">
-            {!! Form::model($result, ['url'=> url('admin/link/'.$result->id), 'method'=> 'post', 'onsubmit'=>'return false', 'id'=>'form']) !!}
+            {!! Form::model($result, ['url'=> url('admin/link/'.$result->id), 'method'=> 'post', 'id'=>'ajaxForm']) !!}
             {{method_field('PUT')}}
             <div class="form-group form-group-sm{{$errors->has('link_name')?' has-error':''}}">
                 {!! Form::label('link_name', trans('link.link_name'), ['class'=> 'control-label']) !!}
@@ -47,31 +47,14 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        $('#update').click(function () {
-            $.ajax({
-                url: "{{ url('admin/link/'.$result->id) }}",
-                data: $('#form').serialize(),
-                type: 'POST',
-                dataType: 'json',
-                success: function(data){
-                    if (data.status == 0){
-                        layer.msg(data.result, {icon: 6});
-                        window.setTimeout(function () {
-                            document.location = "{{ url('admin/link') }}"
-                        }, 3000);
-                    }else{
-                        $('.error_tip').html(data.result);
-                    }
-                },
-                error: function (er) {
-                    var json=JSON.parse(er.responseText);
-                    for (var i in json.errors){
-                        alert(json.errors[i]);
-                    }
-                }
-            });
-        });
+    initAjaxForm('ajaxForm', function(formData, jqForm, options){
+
+    },function (state, data) {
+        if (state == true){
+            if (data.status == 0){
+                redirectToUrl("{{url('admin/link')}}");
+            }
+        }
     });
 </script>
 @endsection

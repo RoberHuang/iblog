@@ -108,8 +108,18 @@ class AdminController extends Controller
         }*/
     }
 
-    public function success(){
+    public function success($msg="trans('admin/common.operation_success')"){
+        return [
+            'status' => '0',
+            'errors' => $msg
+        ];
+    }
 
+    public function error($msg="trans('admin/common.operation_fail')"){
+        return [
+            'status' => '1',
+            'errors' => $msg
+        ];
     }
 
     //session测试

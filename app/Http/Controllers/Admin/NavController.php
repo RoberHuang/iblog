@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Admin\Nav;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class NavController extends Controller
+class NavController extends AdminController
 {
     //
     public function index(){
@@ -36,23 +35,14 @@ class NavController extends Controller
         $res = Validator::make($request->all(), $rule, $message);
 
         if (!$res->passes()){
-            return [
-                'status' => 1,
-                'result' => $res->errors()->first(),
-            ];
+            $this->error( $res->errors()->first() );
         }
 
         $result = Nav::create($request->all());
         if ($result){
-            return [
-                'status' => 0,
-                'result' => '新增成功'
-            ];
+            $this->success( trans('admin/common.add_success') );
         }else{
-            return [
-                'status' => 1,
-                'result' => '新增失败'
-            ];
+            $this->error( trans('admin/common.add_fail') );
         }
     }
 
@@ -78,52 +68,31 @@ class NavController extends Controller
 
         $res = Validator::make($request->all(), $rule, $message);
         if (!$res->passes()){
-            return [
-                'status' => 1,
-                'result' => $res->errors()->first(),
-            ];
+            $this->error( $res->errors()->first() );
         }
 
         $nav = Nav::find($id);
         if (is_null($nav)){
-            return [
-                'status' => '1',
-                'result' => '数据异常',
-            ];
+            $this->error( trans('admin/common.data_abnormal') );
         }
 
         $result = $nav->update($request->all());
         if ($result){
-            return [
-                'status' => 0,
-                'result' => '修改成功'
-            ];
+            $this->success( trans('admin/common.edit_success') );
         }else{
-            return [
-                'status' => 1,
-                'result' => '修改失败'
-            ];
+            $this->error( trans('admin/common.edit_fail') );
         }
     }
 
     public function destroy($id){
         $result = Nav::find($id);
         if (is_null($result)){
-            return [
-                'status' => '1',
-                'msg' => '数据异常',
-            ];
+            $this->error( trans('admin/common.data_abnormal') );
         }
         if ($result->delete()){
-            return [
-                'status' => 0,
-                'result' => '删除成功'
-            ];
+            $this->success();
         }else{
-            return [
-                'status' => 1,
-                'result' => '删除失败'
-            ];
+            $this->error();
         }
     }
 
@@ -138,32 +107,20 @@ class NavController extends Controller
 
         $res = Validator::make($request->all(), $rule, $message);
         if (!$res->passes()){
-            return [
-                'status' => 1,
-                'result' => $res->errors()->first(),
-            ];
+            $this->error( $res->errors()->first() );
         }
 
         $nav = Nav::find($request->input('id'));
         if (is_null($nav)){
-            return [
-                'status' => '1',
-                'result' => '数据异常',
-            ];
+            $this->error( trans('admin/common.data_abnormal') );
         }
 
         $nav->nav_order = $request->input('nav_order');
         $result = $nav->update();
         if ($result){
-            return [
-                'status' => '0',
-                'result' => '操作成功',
-            ];
+            $this->success();
         }else{
-            return [
-                'status' => '1',
-                'result' => '操作失败',
-            ];
+            $this->error();
         }
     }
 }

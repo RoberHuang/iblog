@@ -62,7 +62,7 @@ function del(url) {
 
 /**
  * 刷新页面
- * @param url    重定向地址
+ * @param msec    定时器时间
  */
 function refresh(msec)
 {
@@ -75,6 +75,7 @@ function refresh(msec)
 /**
  * 重定向到url
  * @param url    重定向地址
+ * @param msec    定时器时间
  */
 function redirectToUrl(url, msec) {
     msec = msec || 3000;

@@ -155,7 +155,7 @@
     initAjaxForm('ajaxForm', function(formData, jqForm, options){
         var article_description = $('textarea[name="article_description"]').val();
         if (article_description == ''){
-            $('.error_tip').html('标题不能为空');
+            $('.error_tip').html('描述不能为空');
             return false;
         }
     },function (state, data) {

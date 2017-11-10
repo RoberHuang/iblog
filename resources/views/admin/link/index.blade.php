@@ -56,7 +56,7 @@
                     @foreach($data as $v)
                     <tr>
                         <td class="text-center">
-                            <input type="text" onchange="changeOrder(this, '{{$v->id}}')" value="{{$v->link_order}}" style="width:30px;text-align:center">
+                            <input type="text" onchange="changeOrder(this, '{{$v->id}}', '{{url('admin/link/setOrder')}}')" value="{{$v->link_order}}" style="width:30px;text-align:center">
                         </td>
                         <td class="text-center">{{$v->id}}</td>
                         <td>
@@ -66,7 +66,7 @@
                         <td>{{$v->link_url}}</td>
                         <td>
                             <a href="{{url('admin/link/'.$v->id.'/edit')}}">修改</a>
-                            <a href="javascript:;" onclick="delLinks({{$v->id}})">删除</a>
+                            <a href="javascript:;" onclick="del('{{url('admin/link/'.$v->id)}}')">删除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -79,41 +79,5 @@
     </div>
 </form>
 <!--搜索结果页面 列表 结束-->
-
-<script>
-    function changeOrder(obj,link_id){
-        var link_order = $(obj).val();
-        $.post("{{url('admin/link/setOrder')}}",{'_token':'{{csrf_token()}}','id':link_id,'link_order':link_order},function(data){
-            if(data.status == 0){
-                layer.msg(data.result, {icon: 6});
-            }else{
-                layer.msg(data.result, {icon: 5});
-                window.setTimeout(function () {
-                    document.location = "{{ url('admin/link') }}"
-                }, 3000);
-            }
-        });
-    }
-
-    //删除友情链接
-    function delLinks(link_id) {
-        layer.confirm('您确定要删除这个链接吗？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $.post("{{url('admin/link/')}}/"+link_id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
-                if(data.status==0){
-                    layer.msg(data.result, {icon: 6});
-                    window.setTimeout(function () {
-                        location.href = location.href;
-                    },3000);
-                }else{
-                    layer.msg(data.result, {icon: 5});
-                }
-            });
-        }, function(){
-
-        });
-    }
-</script>
 
 @endsection

@@ -17,7 +17,7 @@
 <div class="main_content">
     <div class="row">
         <div class="col-sm-offset-1 col-sm-4">
-            {!! Form::open(['url'=> url('admin/link'), 'method'=> 'post', 'onsubmit'=>'return false', 'id'=>'form']) !!}
+            {!! Form::open(['url'=> url('admin/link'), 'method'=> 'post', 'id'=>'ajaxForm']) !!}
             <div class="form-group form-group-sm{{$errors->has('link_name')?' has-error':''}}">
                 {!! Form::label('link_name', trans('link.link_name'), ['class'=> 'control-label']) !!}
                 {!! Form::text('link_name', '', ['class'=>'form-control', 'autofocus', 'required']) !!}
@@ -46,4 +46,15 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    initAjaxForm('ajaxForm', function(formData, jqForm, options){
+
+    },function (state, data) {
+        if (state == true){
+            if (data.status == 0){
+                redirectToUrl("{{url('admin/link')}}");
+            }
+        }
+    });
+</script>
 @endsection

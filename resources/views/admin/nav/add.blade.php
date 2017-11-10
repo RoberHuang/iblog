@@ -16,7 +16,7 @@
 <div class="main_content">
     <div class="row">
         <div class="col-sm-offset-1 col-sm-4">
-            {!! Form::open(['url'=> url('admin/nav'), 'method'=> 'post', 'id'=> 'form', 'onsubmit'=> 'return false;']) !!}
+            {!! Form::open(['url'=> url('admin/nav'), 'method'=> 'post', 'id'=> 'ajaxForm']) !!}
             <div class="form-group form-group-sm">
                 {!! Form::label('nav_name', trans('admin/nav.nav_name'), ['class'=> 'control-label']) !!}
                 {!! Form::text('nav_name', '', ['class'=>'form-control', 'autofocus', 'required']) !!}
@@ -44,4 +44,15 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    initAjaxForm('ajaxForm', function(formData, jqForm, options){
+
+    },function (state, data) {
+        if (state == true){
+            if (data.status == 0){
+                redirectToUrl("{{url('admin/nav')}}");
+            }
+        }
+    });
+</script>
 @endsection

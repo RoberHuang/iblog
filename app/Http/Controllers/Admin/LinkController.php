@@ -39,23 +39,14 @@ class LinkController extends AdminController
 
         $res = Validator::make($request->input(), $rule, $message);
         if (!$res->passes()){
-            return [
-                'status' => 1,
-                'errors' => $res->errors()->first(),
-            ];
+            $this->error( $res->errors()->first() );
         }
 
         $result = Link::create($request->all());
         if ($result){
-            return [
-                'status' => 0,
-                'errors' => trans('admin/common.add_success')
-            ];
+            $this->success( trans('admin/common.add_success') );
         }else{
-            return [
-                'status' => 1,
-                'errors' => trans('admin/common.add_fail')
-            ];
+            $this->error( trans('admin/common.add_fail') );
         }
     }
 
@@ -88,52 +79,31 @@ class LinkController extends AdminController
 
         $res = Validator::make($request->input(), $rule, $message);
         if (!$res->passes()){
-            return [
-                'status' => 1,
-                'errors' => $res->errors()->first(),
-            ];
+            $this->error( $res->errors()->first() );
         }
 
         $link = Link::find($id);
         if (is_null($link)){
-            return [
-                'status' => '1',
-                'msg' => trans('admin/common.data_abnormal')
-            ];
+            $this->error( trans('admin/common.data_abnormal') );
         }
 
         $result = $link->update($request->all());
         if ($result){
-            return [
-                'status' => 0,
-                'errors' => trans('admin/common.edit_success')
-            ];
+            $this->success( trans('admin/common.edit_success') );
         }else{
-            return [
-                'status' => 1,
-                'errors' => trans('admin/common.edit_fail')
-            ];
+            $this->error( trans('admin/common.edit_fail') );
         }
     }
 
     public function destroy($id){
         $result = Link::find($id);
         if (is_null($result)){
-            return [
-                'status' => '1',
-                'errors' => trans('admin/common.data_abnormal')
-            ];
+            $this->error( trans('admin/common.data_abnormal') );
         }
         if ($result->delete()){
-            return [
-                'status' => 0,
-                'errors' => trans('admin/common.operation_success')
-            ];
+            $this->success();
         }else{
-            return [
-                'status' => 1,
-                'errors' => trans('admin/common.operation_fail')
-            ];
+            $this->error();
         }
     }
 
@@ -148,31 +118,19 @@ class LinkController extends AdminController
 
         $res = Validator::make($request->input(), $rule, $message);
         if (!$res->passes()){
-            return [
-                'status' => 1,
-                'errors' => $res->errors()->first(),
-            ];
+            $this->error( $res->errors()->first() );
         }
 
         $link = Link::find($request->input('id'));
         if (is_null($link)){
-            return [
-                'status' => '1',
-                'errors' => trans('admin/common.data_abnormal')
-            ];
+            $this->error( trans('admin/common.data_abnormal') );
         }else{
             $link->link_order = $request->input('link_order');
             $result = $link->update();
             if ($result){
-                return [
-                    'status' => '0',
-                    'errors' => trans('admin/common.operation_success')
-                ];
+                $this->success();
             }else{
-                return [
-                    'status' => '1',
-                    'errors' => trans('admin/common.operation_fail')
-                ];
+                $this->error();
             }
         }
     }

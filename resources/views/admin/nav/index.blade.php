@@ -55,7 +55,7 @@
                     @foreach($data as $v)
                     <tr>
                         <td class="text-center">
-                            <input type="text" onchange="changeOrder(this, '{{$v->id}}')" value="{{$v->nav_order}}" style="width:30px;text-align:center">
+                            <input type="text" onchange="changeOrder(this, '{{$v->id}}', '{{url('admin/nav/setOrder')}}')" value="{{$v->nav_order}}" style="width:30px;text-align:center">
                         </td>
                         <td class="text-center">{{$v->id}}</td>
                         <td>
@@ -65,7 +65,7 @@
                         <td>{{$v->nav_url}}</td>
                         <td>
                             <a href="{{url('admin/nav/'.$v->id.'/edit')}}">修改</a>
-                            <a href="javascript:;" onclick="del({{$v->id}})">删除</a>
+                            <a href="javascript:;" onclick="del('{{url('admin/nav/'.$v->id}}')">删除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -78,41 +78,5 @@
     </div>
 </form>
 <!--搜索结果页面 列表 结束-->
-
-<script>
-    function changeOrder(obj,nav_id){
-        var nav_order = $(obj).val();
-        $.post("{{url('admin/nav/setOrder')}}",{'_token':'{{csrf_token()}}','id':nav_id,'nav_order':nav_order},function(data){
-            if(data.status == 0){
-                layer.msg(data.result, {icon: 6});
-            }else{
-                layer.msg(data.result, {icon: 5});
-                window.setTimeout(function () {
-                    document.location = "{{ url('admin/nav') }}"
-                }, 3000);
-            }
-        });
-    }
-    //删除自定义导航
-    function del(id) {
-        layer.confirm('您确定要删除这个导航吗？', {
-            btn: ['确定','取消'] //按钮
-        }, function(){
-            $.post("{{url('admin/nav/')}}/"+id,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
-                if(data.status==0){
-                    layer.msg(data.result, {icon: 6});
-                    window.setTimeout(function () {
-                        location.href = location.href;
-                    },3000);
-                }else{
-                    layer.msg(data.result, {icon: 5});
-                }
-            });
-//            layer.msg('的确很重要', {icon: 1});
-        }, function(){
-
-        });
-    }
-</script>
 
 @endsection

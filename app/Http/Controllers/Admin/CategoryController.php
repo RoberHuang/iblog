@@ -41,40 +41,23 @@ class CategoryController extends AdminController
 
         $res = Category::create($request->all());
         if ($res){
-            return [
-                'status' => '0',
-                'errors' => trans('admin/common.add_success')
-            ];
+            $this->success( trans('admin/common.add_success') );
         }else{
-            return [
-                'status' => '1',
-                'errors' => trans('admin/common.add_fail')
-            ];
+            $this->error( trans('admin/common.add_fail') );
         }
     }
 
     public function destroy(Request $request, $id){
         $result = Category::find($id);
         if (is_null($result)){
-            return [
-                'status' => '1',
-                'errors' => trans('admin/common.data_abnormal')
-            ];
+            $this->error( trans('admin/common.data_abnormal') );
         }
         if ($result->delete()){
             Category::where('cate_pid', $id)->update(['cate_pid'=>$result->cate_pid]);
-            $data = [
-                'status' => '0',
-                'errors' => trans('admin/common.operation_success')
-            ];
+            $this->success();
         }else{
-            $data = [
-                'status' => '1',
-                'errors' => trans('admin/common.operation_fail')
-            ];
+            $this->error();
         }
-
-        return $data;
     }
 
     public function edit($id){
@@ -94,15 +77,9 @@ class CategoryController extends AdminController
 
         $res = Category::where('id', $id)->update($input);
         if ($res){
-            return [
-                'status' => '0',
-                'errors' => trans('admin/common.edit_success')
-            ];
+            $this->success( trans('admin/common.edit_success') );
         }else{
-            return [
-                'status' => '1',
-                'errors' => trans('admin/common.edit_fail')
-            ];
+            $this->error( trans('admin/common.edit_fail') );
         }
     }
 
@@ -114,28 +91,17 @@ class CategoryController extends AdminController
         $cate = Category::find($request->input('id'));
 
         if (is_null($cate)){
-            $data = [
-                'status' => '1',
-                'errors' => trans('admin/common.data_abnormal')
-            ];
+            $this->error( trans('admin/common.data_abnormal') );
         }else{
             $cate->cate_order = $request->input('order');
             $re = $cate->update();
 
             if ($re){
-                $data = [
-                    'status' => '0',
-                    'errors' => trans('admin/common.operation_success')
-                ];
+                $this->success();
             }else{
-                $data = [
-                    'status' => '1',
-                    'errors' => trans('admin/common.operation_fail')
-                ];
+                $this->error();
             }
         }
-
-        return $data;
     }
 
 }
