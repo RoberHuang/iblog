@@ -54,7 +54,10 @@ class ArticleController extends AdminController
 
         $res = Validator::make($request->input(), $rule, $message);
         if (!$res->passes()){
-            $this->error( $res->errors()->first() );
+            return [
+                'status' => '1',
+                'errors' => $res->errors()->first()
+            ];
         }
 
         //验证方式2
@@ -66,9 +69,15 @@ class ArticleController extends AdminController
 
         $result = Article::create(array_merge(['published_at'=>'2017-10-3'],$request->all()));
         if ($result){
-            $this->success( trans('admin/common.add_success') );
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.add_success')
+            ];
         }else{
-            $this->error( trans('admin/common.add_fail') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.add_fail')
+            ];
         }
     }
 
@@ -96,7 +105,10 @@ class ArticleController extends AdminController
 
         $res = Validator::make($request->all(), $rule, $message);
         if (!$res->passes()){   //$res->fails()
-            $this->error( $res->errors()->first() );
+            return [
+                'status' => '1',
+                'errors' => $res->errors()->first()
+            ];
         }
 
         $article = Article::find($id);
@@ -105,24 +117,39 @@ class ArticleController extends AdminController
         }
         $result = $article->update($request->all());
         if ($result){
-            $this->success( trans('admin/common.edit_success') );
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.edit_success')
+            ];
         }else{
-            $this->error( trans('admin/common.edit_fail') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.edit_fail')
+            ];
         }
     }
 
     public function destroy(Request $request, $id){
         $result = Article::find($id);
         if (is_null($result)){
-            $this->error( trans('admin/common.data_abnormal') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.data_abnormal')
+            ];
         }
         if ($result->delete()){
             if (file_exists($result->article_thumb)){
                 unlink($result->article_thumb);
             }
-            $this->success();
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.operation_success')
+            ];
         }else{
-            $this->error();
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.operation_fail')
+            ];
         }
     }
 }

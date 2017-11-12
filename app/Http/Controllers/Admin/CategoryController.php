@@ -41,22 +41,37 @@ class CategoryController extends AdminController
 
         $res = Category::create($request->all());
         if ($res){
-            $this->success( trans('admin/common.add_success') );
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.add_success')
+            ];
         }else{
-            $this->error( trans('admin/common.add_fail') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.add_fail')
+            ];
         }
     }
 
     public function destroy(Request $request, $id){
         $result = Category::find($id);
         if (is_null($result)){
-            $this->error( trans('admin/common.data_abnormal') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.data_abnormal')
+            ];
         }
         if ($result->delete()){
             Category::where('cate_pid', $id)->update(['cate_pid'=>$result->cate_pid]);
-            $this->success();
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.operation_success')
+            ];
         }else{
-            $this->error();
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.operation_fail')
+            ];
         }
     }
 
@@ -77,9 +92,15 @@ class CategoryController extends AdminController
 
         $res = Category::where('id', $id)->update($input);
         if ($res){
-            $this->success( trans('admin/common.edit_success') );
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.edit_success')
+            ];
         }else{
-            $this->error( trans('admin/common.edit_fail') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.edit_fail')
+            ];
         }
     }
 
@@ -91,15 +112,24 @@ class CategoryController extends AdminController
         $cate = Category::find($request->input('id'));
 
         if (is_null($cate)){
-            $this->error( trans('admin/common.data_abnormal') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.data_abnormal')
+            ];
         }else{
             $cate->cate_order = $request->input('order');
             $re = $cate->update();
 
             if ($re){
-                $this->success();
+                return [
+                    'status' => '0',
+                    'errors' => trans('admin/common.operation_success')
+                ];
             }else{
-                $this->error();
+                return [
+                    'status' => '1',
+                    'errors' => trans('admin/common.operation_fail')
+                ];
             }
         }
     }

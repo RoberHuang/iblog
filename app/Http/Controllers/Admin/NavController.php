@@ -35,14 +35,23 @@ class NavController extends AdminController
         $res = Validator::make($request->all(), $rule, $message);
 
         if (!$res->passes()){
-            $this->error( $res->errors()->first() );
+            return [
+                'status' => '1',
+                'errors' => $res->errors()->first()
+            ];
         }
 
         $result = Nav::create($request->all());
         if ($result){
-            $this->success( trans('admin/common.add_success') );
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.add_success')
+            ];
         }else{
-            $this->error( trans('admin/common.add_fail') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.add_fail')
+            ];
         }
     }
 
@@ -68,31 +77,52 @@ class NavController extends AdminController
 
         $res = Validator::make($request->all(), $rule, $message);
         if (!$res->passes()){
-            $this->error( $res->errors()->first() );
+            return [
+                'status' => '1',
+                'errors' => $res->errors()->first()
+            ];
         }
 
         $nav = Nav::find($id);
         if (is_null($nav)){
-            $this->error( trans('admin/common.data_abnormal') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.data_abnormal')
+            ];
         }
 
         $result = $nav->update($request->all());
         if ($result){
-            $this->success( trans('admin/common.edit_success') );
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.edit_success')
+            ];
         }else{
-            $this->error( trans('admin/common.edit_fail') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.edit_fail')
+            ];
         }
     }
 
     public function destroy($id){
         $result = Nav::find($id);
         if (is_null($result)){
-            $this->error( trans('admin/common.data_abnormal') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.data_abnormal')
+            ];
         }
         if ($result->delete()){
-            $this->success();
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.operation_success')
+            ];
         }else{
-            $this->error();
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.operation_fail')
+            ];
         }
     }
 
@@ -107,20 +137,32 @@ class NavController extends AdminController
 
         $res = Validator::make($request->all(), $rule, $message);
         if (!$res->passes()){
-            $this->error( $res->errors()->first() );
+            return [
+                'status' => '1',
+                'errors' => $res->errors()->first()
+            ];
         }
 
         $nav = Nav::find($request->input('id'));
         if (is_null($nav)){
-            $this->error( trans('admin/common.data_abnormal') );
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.data_abnormal')
+            ];
         }
 
         $nav->nav_order = $request->input('nav_order');
         $result = $nav->update();
         if ($result){
-            $this->success();
+            return [
+                'status' => '0',
+                'errors' => trans('admin/common.operation_success')
+            ];
         }else{
-            $this->error();
+            return [
+                'status' => '1',
+                'errors' => trans('admin/common.operation_fail')
+            ];
         }
     }
 }
