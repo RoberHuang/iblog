@@ -147,8 +147,8 @@
         <div class="row">
             <div class="col-sm-offset-3 col-sm-2">
                 <div class="form-group">
-                    <button id="submit" type="submit" class="btn btn-sm btn-primary">提交</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-sm btn-default" onclick="history.go(-1)">返回</button>
+                    <button id="submit" type="submit" class="btn btn-sm btn-primary">{{trans('admin/common.submit')}}</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-sm btn-default" onclick="history.go(-1)">{{trans('admin/common.return')}}</button>
                 </div>
             </div>
             <div class="col-sm-6">

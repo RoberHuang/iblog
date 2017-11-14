@@ -30,15 +30,15 @@
                 {!! Form::url('nav_url', 'http://', ['class'=>'form-control', 'required']) !!}
             </div>
             <div class="form-group form-group-sm{{$errors->has('link_order')?' has-error':''}}">
-                {!! Form::label('nav_order', trans('admin/nav.nav_order'), ['class'=> 'control-label']) !!}
+                {!! Form::label('nav_order', trans('admin/common.order'), ['class'=> 'control-label']) !!}
                 {!! Form::number('nav_order', '0', ['class'=>'form-control']) !!}
             </div>
             <div class="has-error">
                 <label class="help-block error_tip"></label>
             </div>
             <div class="form-group">
-                {!!  Form::submit(trans('admin/nav.submit'), ['id'=>'submit', 'class'=> 'btn btn-sm btn-primary']) !!}
-                {!!  Form::button(trans('admin/nav.comeback'), ['class'=> 'btn btn-sm btn-default', 'onclick'=>'history.go(-1)']) !!}
+                {!!  Form::submit(trans('admin/common.submit'), ['id'=>'submit', 'class'=> 'btn btn-sm btn-primary']) !!}
+                {!!  Form::button(trans('admin/common.return'), ['class'=> 'btn btn-sm btn-default', 'onclick'=>'history.go(-1)']) !!}
             </div>
             {!! Form::close() !!}
         </div>

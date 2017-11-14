@@ -65,7 +65,7 @@
                         <td>{{$v->nav_url}}</td>
                         <td>
                             <a href="{{url('admin/nav/'.$v->id.'/edit')}}">修改</a>
-                            <a href="javascript:;" onclick="del('{{url('admin/nav/'.$v->id}}')">删除</a>
+                            <a href="javascript:;" onclick="del('{{url('admin/nav/'.$v->id)}}')">删除</a>
                         </td>
                     </tr>
                     @endforeach

@@ -14,7 +14,14 @@ class CreateConfigTable extends Migration
     public function up()
     {
         Schema::create('config', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->increments('id');
+            $table->string('conf_title', 128);
+            $table->string('conf_name', 128);
+            $table->string('field_type', 16)->default('input');
+            $table->string('field_value', 256)->nullable();;
+            $table->unsignedTinyInteger('conf_order')->default(0);
+            $table->text('conf_remark')->nullable();
             $table->timestamps();
         });
     }

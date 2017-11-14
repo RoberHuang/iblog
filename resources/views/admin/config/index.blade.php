@@ -25,12 +25,12 @@
 
 <!--搜索结果页面 列表 开始-->
     <div class="main_title">
-        <h5>配置项列表</h5>
+        <h5>{{trans('admin/config.conf_list')}}</h5>
         <!--快捷配置项 开始-->
         <div class="row">
             <ul class="col-sm-12">
-                <li class="left navbar-collapse"><a href="{{url('admin/config/create')}}"><i class="fa fa-plus"></i>添加配置项</a></li>
-                <li class="left navbar-collapse"><a href="{{url('admin/config')}}"><i class="fa fa-recycle"></i>全部配置项</a></li>
+                <li class="left navbar-collapse"><a href="{{url('admin/config/create')}}"><i class="fa fa-plus"></i>{{trans('admin/config.conf_add')}}</a></li>
+                <li class="left navbar-collapse"><a href="{{url('admin/config')}}"><i class="fa fa-recycle"></i>{{trans('admin/config.conf_list')}}</a></li>
             </ul>
         </div>
         <!--快捷配置项 结束-->
@@ -43,12 +43,12 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th class="text-center" width="4%">排序</th>
-                            <th class="text-center" width="3%">ID</th>
-                            <th>标题</th>
-                            <th>名称</th>
-                            <th>内容</th>
-                            <th>操作</th>
+                            <th class="text-center" width="4%">{{trans('admin/common.order')}}</th>
+                            <th class="text-center" width="3%">{{trans('admin/common.id')}}</th>
+                            <th>{{trans('admin/common.title')}}</th>
+                            <th>{{trans('admin/common.the_name')}}</th>
+                            <th>{{trans('admin/common.content')}}</th>
+                            <th>{{trans('admin/common.handle')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,19 +68,19 @@
                                 {!! $v->_html !!}
                             </td>
                             <td>
-                                <a href="{{url('admin/config/'.$v->id.'/edit')}}">修改</a>
-                                <a href="javascript:;" onclick="del('{{url('admin/config/'.$v->id}}')">删除</a>
+                                <a href="{{url('admin/config/'.$v->id.'/edit')}}">{{trans('admin/common.modify')}}</a>
+                                <a href="javascript:;" onclick="del('{{url('admin/config/'.$v->id)}}')">{{trans('admin/common.delete')}}</a>
                             </td>
                         </tr>
                         @endforeach
                         @else
-                            <tr><td class="text-center" colspan="6">暂无内容</td></tr>
+                            <tr><td class="text-center" colspan="6">{{trans('admin/common.null_content')}}</td></tr>
                         @endif
                     </tbody>
                 </table>
-                <div class="btn_group">
-                    <input type="submit" value="提交">
-                    <input type="button" class="back" onclick="history.go(-1)" value="返回" >
+                <div class="form-group">
+                    <button id="submit" type="submit" class="btn btn-sm btn-primary">{{trans('admin/common.submit')}}</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-sm btn-default" onclick="history.go(-1)">{{trans('admin/common.return')}}</button>
                 </div>
             </form>
         </div>
