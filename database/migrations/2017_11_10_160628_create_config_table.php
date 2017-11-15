@@ -21,6 +21,7 @@ class CreateConfigTable extends Migration
             $table->string('field_type', 16)->default('input');
             $table->string('field_value', 256)->nullable();;
             $table->unsignedTinyInteger('conf_order')->default(0);
+            $table->text('conf_content')->nullable();
             $table->text('conf_remark')->nullable();
             $table->timestamps();
         });

@@ -38,7 +38,7 @@
 
     <div class="main_content">
         <div class="table-responsive">
-            <form action="{{url('admin/config/changecontent')}}" method="post">
+            <form action="{{url('admin/config/setConf')}}" method="post" id="ajaxForm">
                 {{csrf_field()}}
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -56,7 +56,7 @@
                         @foreach($data as $v)
                         <tr>
                             <td class="text-center">
-                                <input type="text" onchange="changeOrder()" value="{{$v->conf_order}}" style="width:30px;text-align:center">
+                                <input type="text" onchange="changeOrder(this,'{{$v->id}}','{{url('admin/config/setOrder')}}')" value="{{$v->conf_order}}" style="width:30px;text-align:center">
                             </td>
                             <td class="text-center">{{$v->id}}</td>
                             <td>
@@ -86,5 +86,15 @@
         </div>
     </div>
 <!--搜索结果页面 列表 结束-->
+<script>
+    initAjaxForm('ajaxForm', function(formData, jqForm, options){
 
+    },function (state, data) {
+        if (state == true){
+            if (data.status == 0){
+                redirectToUrl("{{url('admin/config')}}");
+            }
+        }
+    });
+</script>
 @endsection

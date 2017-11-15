@@ -63,6 +63,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     $router->resource('nav', 'NavController');
 
     $router->post('config/setOrder', 'ConfigController@setOrder');
+    $router->post('config/setConf', 'ConfigController@setConf');
     $router->resource('config', 'ConfigController');
 
 

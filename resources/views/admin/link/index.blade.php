@@ -65,8 +65,8 @@
                         <td>{{$v->link_title}}</td>
                         <td>{{$v->link_url}}</td>
                         <td>
-                            <a href="{{url('admin/link/'.$v->id.'/edit')}}">修改</a>
-                            <a href="javascript:;" onclick="del('{{url('admin/link/'.$v->id)}}')">删除</a>
+                            <a href="{{url('admin/link/'.$v->id.'/edit')}}">{{trans('admin/common.modify')}}</a>
+                            <a href="javascript:;" onclick="del('{{url('admin/link/'.$v->id)}}')">{{trans('admin/common.delete')}}</a>
                         </td>
                     </tr>
                     @endforeach

@@ -220,7 +220,7 @@ function showTip(error, status) {
 function initAjax() {
     $.ajaxSetup({
         beforeSend: function () {
-            alert('当一个Ajax请求开始时触发');
+            //alert('当一个Ajax请求开始时触发');
         },
         complete:function(o){
             //alert('对象状态，4为完成: ' + o.readyState);
