@@ -42,7 +42,7 @@
             <div class="form-group form-group-sm field_value">
                 {!! Form::label('field_value', trans('admin/config.type_value'), ['class'=> 'control-label']) !!}
                 {!! Form::text('field_value', '', ['class'=>'form-control']) !!}
-                <p><i class="fa fa-exclamation-circle yellow"></i>类型值只有在radio的情况下才需要配置，格式： 1|开启,0|关闭</p>
+                <p><i class="fa fa-exclamation-circle yellow"></i>{{trans('admin/config.field_val_tip')}}</p>
             </div>
             <div class="form-group form-group-sm">
                 {!! Form::label('conf_order', trans('admin/common.order'), ['class'=> 'control-label']) !!}

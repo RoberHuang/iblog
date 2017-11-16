@@ -13,5 +13,6 @@ return [
     'type_value' => '类型值',
     'remark' => '说明',
 
+    'field_val_tip' => '类型值只有在radio的情况下才需要配置，格式： 1|开启,0|关闭',
     'field_val_err' => '类型值格式不正确',
 ];

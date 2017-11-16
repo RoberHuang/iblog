@@ -23,7 +23,7 @@
             </h3>
             <ul>
                 @foreach($pics as $p)
-                <li><a href="{{url('a/'.$p->art_id)}}"  target="_blank"><img src="{{url($p->art_thumb)}}"></a><span>{{$p->art_title}}</span></li>
+                <li><a href="{{url('a/'.$p->id)}}"  target="_blank"><img src="{{$p->article_thumb}}"></a><span>{{$p->article_title}}</span></li>
                 @endforeach
             </ul>
         </div>
@@ -34,13 +34,13 @@
         </h2>
         <div class="bloglist left">
             @foreach($data as $d)
-            <h3>{{$d->art_title}}</h3>
-            <figure><img src="{{url($d->art_thumb)}}"></figure>
+            <h3>{{$d->article_title}}</h3>
+            <figure><img src="{{$d->article_thumb}}"></figure>
             <ul>
                 <p>{{$d->art_description}}</p>
-                <a title="{{$d->art_title}}" href="{{url('a/'.$d->art_id)}}" target="_blank" class="readmore">阅读全文>></a>
+                <a title="{{$d->article_title}}" href="{{url('a/'.$d->id)}}" target="_blank" class="readmore">阅读全文>></a>
             </ul>
-            <p class="dateview"><span>{{date('Y-m-d',$d->art_time)}}</span><span>作者：{{$d->art_editor}}</span></p>
+            <p class="dateview"><span>{{$d->created_at}}</span><span>作者：{{$d->article_author}}</span></p>
             @endforeach
             <div class="page">
                 {{$data->links()}}

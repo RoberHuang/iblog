@@ -25,6 +25,12 @@ Route::group(['middleware'=>'web'],function ($router)
     Auth::routes();
 
     Route::get('/home', 'HomeController@index')->name('home');
+
+    $router->get('/', 'Home\IndexController@index');
+
+    Route::get('/cate/{cate_id}', 'Home\IndexController@cate');
+    Route::get('/a/{art_id}', 'Home\IndexController@article');
+
 });
 
 //后台模块
